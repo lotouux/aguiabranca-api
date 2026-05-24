@@ -3,42 +3,52 @@ package com.aguiabranca.api.controller;
 import com.aguiabranca.api.dto.IdeiaRequestDTO;
 import com.aguiabranca.api.dto.IdeiaResponseDTO;
 import com.aguiabranca.api.dto.MarcoProjetoDTO;
+import com.aguiabranca.api.model.Ideia;
+import com.aguiabranca.api.repository.IdeiaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/ideias")
 public class IdeiaController {
 
-    // Rota para o App listar todas as ideias (Usado pelo Gestor e Operador)
+    @Autowired
+    private IdeiaRepository repository;
+
     @GetMapping
     public ResponseEntity<List<IdeiaResponseDTO>> listarIdeias() {
+        List<IdeiaResponseDTO> ideias = repository.findAll().stream().map(i -> new IdeiaResponseDTO(
+                i.getId(), i.getTitulo(), i.getDescricao(), i.getStatus(),
+                i.getArea(), i.getData(), i.getAutor(), i.getBaseKM(),
+                i.isStrategicBonus(), i.getImpacto(), i.getEsforco(),
+                i.getPrioridade(), i.getPrazo(), i.getRoiEsperado(),
+                i.getInvestimento(), i.getRetorno(), i.getObservacaoProgresso(),
+                i.getMarcos() != null ? i.getMarcos().stream().map(m -> new MarcoProjetoDTO(
+                        m.getId(), m.getTitulo(), m.isCompleto(), m.getDataCompleto()
+                )).collect(Collectors.toList()) : new ArrayList<>(),
+                i.getResponsavel()
+        )).collect(Collectors.toList());
 
-        // Mock reproduzindo exatamente a "Ideia 1" do seu arquivo Kotlin
-        IdeiaResponseDTO ideia1 = new IdeiaResponseDTO(
-                "1", "Sistema de Roteirização Inteligente", "Otimização de rotas via IA.",
-                "Em Execução", "Logística", "12 ago", "Pedro Miranda", 200, false,
-                "Alto", "Alto", "A", "29/06/2026", 2.0f, 150000f, 450000f, "",
-                List.of(
-                        new MarcoProjetoDTO(0, "Análise de Requisitos", true, "20/03/2026"),
-                        new MarcoProjetoDTO(1, "MVP desenvolvido", true, "29/03/2026"),
-                        new MarcoProjetoDTO(2, "Testes piloto", false, ""),
-                        new MarcoProjetoDTO(3, "Rollout completo", false, "")
-                ),
-                "Larissa Linguiça"
-        );
-
-        return ResponseEntity.ok(List.of(ideia1));
+        return ResponseEntity.ok(ideias);
     }
 
-    // Rota para o Operador enviar uma nova ideia
     @PostMapping
-    public ResponseEntity<String> criarIdeia(@RequestBody IdeiaRequestDTO novaIdeia) {
-        System.out.println("Nova ideia recebida: " + novaIdeia.titulo() + " da área de " + novaIdeia.area());
+    public ResponseEntity<String> criarIdeia(@RequestBody IdeiaRequestDTO dto) {
+        Ideia novaIdeia = new Ideia();
+        novaIdeia.setTitulo(dto.titulo());
+        novaIdeia.setDescricao(dto.descricao());
+        novaIdeia.setArea(dto.area());
+        novaIdeia.setImpacto(dto.impacto());
+        novaIdeia.setEsforco(dto.esforco());
+        novaIdeia.setPrioridade(dto.prioridade());
+        novaIdeia.setStatus("Nova");
 
-        // Retorna status 201 (Created)
+        repository.save(novaIdeia);
         return ResponseEntity.status(201).body("Ideia submetida com sucesso!");
     }
 }
