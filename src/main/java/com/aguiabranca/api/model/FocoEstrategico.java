@@ -11,6 +11,7 @@ import java.util.List;
 public class FocoEstrategico {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String mes;

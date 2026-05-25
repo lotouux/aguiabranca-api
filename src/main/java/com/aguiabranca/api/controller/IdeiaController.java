@@ -43,10 +43,20 @@ public class IdeiaController {
         novaIdeia.setTitulo(dto.titulo());
         novaIdeia.setDescricao(dto.descricao());
         novaIdeia.setArea(dto.area());
+        novaIdeia.setAutor(dto.autor());
+        novaIdeia.setBaseKM(100);
         novaIdeia.setImpacto(dto.impacto());
         novaIdeia.setEsforco(dto.esforco());
-        novaIdeia.setPrioridade(dto.prioridade());
+        novaIdeia.setData(dto.data());
+        novaIdeia.setPrazo(dto.prazo());
+        novaIdeia.setRoiEsperado(0f);
+        novaIdeia.setInvestimento(0f);
+        novaIdeia.setRetorno(0f);
+        novaIdeia.setObservacaoProgresso("");
+        novaIdeia.setMarcos(null);
+        novaIdeia.setPrioridade("Baixa");
         novaIdeia.setStatus("Nova");
+        novaIdeia.setResponsavel("");
 
         repository.save(novaIdeia);
         return ResponseEntity.status(201).body("Ideia submetida com sucesso!");
