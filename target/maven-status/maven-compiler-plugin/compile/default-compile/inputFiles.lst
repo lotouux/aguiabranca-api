@@ -5,6 +5,7 @@ F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\EstrategiaC
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\IdeiaController.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarIdeiaRequestDTO.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarMarcoRequestDTO.java
+F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\CriarFocoDTO.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\FocoEstrategicoDTO.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\IdeiaRequestDTO.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\IdeiaResponseDTO.java

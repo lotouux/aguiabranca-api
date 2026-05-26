@@ -38,11 +38,11 @@ public class DataSeeder implements CommandLineRunner {
 
                 // 2. Seed de Focos Estratégicos
                 if (focoRepository.count() == 0) {
-                        focoRepository.save(new FocoEstrategico(null, "Junho", "Redução de Emissões",
+                        focoRepository.save(new FocoEstrategico(null, "Jun", "Redução de Emissões",
                                         "Foco em ideias que reduzam a pegada de carbono da frota em 15%.",
                                         List.of("Logística", "Operação"),
                                         true));
-                        focoRepository.save(new FocoEstrategico(null, "Julho", "Eficiência em Logística",
+                        focoRepository.save(new FocoEstrategico(null, "Jul", "Eficiência em Logística",
                                         "Otimizar processos de carga e descarga para reduzir tempo em 20%.",
                                         List.of("Logística"), false));
                         System.out.println("Focos Estratégicos criados");
@@ -68,7 +68,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia1.setInvestimento(150000f);
                         ideia1.setRetorno(450000f);
                         ideia1.setObservacaoProgresso("");
-                        ideia1.setResponsavel("Larissa Linguiça");
+                        ideia1.setResponsavel("Larissa Bernardes");
 
                         MarcoProjeto m1 = new MarcoProjeto(null, "Análise de Requisitos", true, "20/03/2026", ideia1);
                         MarcoProjeto m2 = new MarcoProjeto(null, "MVP desenvolvido", true, "29/03/2026", ideia1);
@@ -100,7 +100,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia2.setInvestimento(150000f);
                         ideia2.setRetorno(420000f);
                         ideia2.setObservacaoProgresso("Integração inicial concluída.");
-                        ideia2.setResponsavel("Larissa Linguiça");
+                        ideia2.setResponsavel("Larissa Bernardes");
 
                         MarcoProjeto m5 = new MarcoProjeto(null, "Planejamento e levantamento de requisitos", true,
                                         "12/02/2026", ideia2);
@@ -159,7 +159,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia4.setInvestimento(0f);
                         ideia4.setRetorno(0f);
                         ideia4.setObservacaoProgresso("");
-                        ideia4.setResponsavel("");
+                        ideia4.setResponsavel("Larissa Bernardes");
                         ideia4.setMarcos(new ArrayList<>());
 
                         ideiaRepository.save(ideia4);
@@ -184,7 +184,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia5.setInvestimento(85000f);
                         ideia5.setRetorno(289000f);
                         ideia5.setObservacaoProgresso("Projeto concluído e integrado ao sistema principal.");
-                        ideia5.setResponsavel("Larissa Linguiça");
+                        ideia5.setResponsavel("Larissa Bernardes");
 
                         MarcoProjeto m9 = new MarcoProjeto(null, "Definição dos fluxos de coleta de feedback", true,
                                         "10/01/2026", ideia5);
