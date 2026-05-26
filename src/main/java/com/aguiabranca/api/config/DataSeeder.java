@@ -154,7 +154,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia4.setImpacto("Médio");
                         ideia4.setEsforco("Baixo");
                         ideia4.setPrioridade("Média");
-                        ideia4.setPrazo("");
+                        ideia4.setPrazo("30/12/2027");
                         ideia4.setRoiEsperado(0f);
                         ideia4.setInvestimento(0f);
                         ideia4.setRetorno(0f);
