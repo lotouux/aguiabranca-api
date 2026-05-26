@@ -8,13 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MarcoProjeto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String titulo;
-
     private boolean isCompleto;
 
     private String dataCompleto;

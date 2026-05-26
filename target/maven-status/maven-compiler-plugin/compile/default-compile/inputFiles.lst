@@ -3,6 +3,8 @@ F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\config\DataSeeder.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\AuthController.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\EstrategiaController.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\IdeiaController.java
+F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarIdeiaRequestDTO.java
+F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarMarcoRequestDTO.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\FocoEstrategicoDTO.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\IdeiaRequestDTO.java
 F:\FIAP\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\IdeiaResponseDTO.java

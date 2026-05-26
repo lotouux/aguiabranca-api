@@ -62,7 +62,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia1.setStrategicBonus(false);
                         ideia1.setImpacto("Alto");
                         ideia1.setEsforco("Alto");
-                        ideia1.setPrioridade("A");
+                        ideia1.setPrioridade("Alta");
                         ideia1.setPrazo("29/06/2026");
                         ideia1.setRoiEsperado(2.0f);
                         ideia1.setInvestimento(150000f);
@@ -94,7 +94,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia2.setStrategicBonus(true);
                         ideia2.setImpacto("Alto");
                         ideia2.setEsforco("Médio");
-                        ideia2.setPrioridade("A+");
+                        ideia2.setPrioridade("Alta");
                         ideia2.setPrazo("05/07/2026");
                         ideia2.setRoiEsperado(2.8f);
                         ideia2.setInvestimento(150000f);
@@ -128,7 +128,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia3.setStrategicBonus(false);
                         ideia3.setImpacto("Alto");
                         ideia3.setEsforco("Médio");
-                        ideia3.setPrioridade("A+");
+                        ideia3.setPrioridade("Alta");
                         ideia3.setPrazo("");
                         ideia3.setRoiEsperado(0f);
                         ideia3.setInvestimento(0f);
@@ -153,7 +153,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia4.setStrategicBonus(false);
                         ideia4.setImpacto("Médio");
                         ideia4.setEsforco("Baixo");
-                        ideia4.setPrioridade("B");
+                        ideia4.setPrioridade("Média");
                         ideia4.setPrazo("");
                         ideia4.setRoiEsperado(0f);
                         ideia4.setInvestimento(0f);
@@ -178,7 +178,7 @@ public class DataSeeder implements CommandLineRunner {
                         ideia5.setStrategicBonus(false);
                         ideia5.setImpacto("Alto");
                         ideia5.setEsforco("Médio");
-                        ideia5.setPrioridade("A");
+                        ideia5.setPrioridade("Alta");
                         ideia5.setPrazo("20/06/2026");
                         ideia5.setRoiEsperado(3.4f);
                         ideia5.setInvestimento(85000f);

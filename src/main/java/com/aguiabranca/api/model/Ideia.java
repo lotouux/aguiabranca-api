@@ -2,6 +2,8 @@ package com.aguiabranca.api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -49,5 +51,5 @@ public class Ideia {
     private String responsavel;
 
     @OneToMany(mappedBy = "ideia", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<MarcoProjeto> marcos;
+    private List<MarcoProjeto> marcos = new ArrayList<>();
 }
