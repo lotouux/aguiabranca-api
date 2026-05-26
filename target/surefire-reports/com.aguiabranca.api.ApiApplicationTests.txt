@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.aguiabranca.api.ApiApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.96 s -- in com.aguiabranca.api.ApiApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.945 s -- in com.aguiabranca.api.ApiApplicationTests
