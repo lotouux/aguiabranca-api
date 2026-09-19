@@ -1,6 +1,8 @@
 package com.aguiabranca.api.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record LoginRequestDTO(
-        String matricula,
-        String senha
+        @NotBlank String matricula,
+        @NotBlank String senha
 ) {}

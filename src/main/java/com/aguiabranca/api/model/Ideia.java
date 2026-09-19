@@ -1,55 +1,82 @@
 package com.aguiabranca.api.model;
 
+import com.aguiabranca.api.model.enums.Nivel;
+import com.aguiabranca.api.model.enums.Prioridade;
+import com.aguiabranca.api.model.enums.StatusIdeia;
+import com.aguiabranca.api.util.CalculadoraRoi;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
+@EntityListeners(AuditingEntityListener.class)
 public class Ideia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @EqualsAndHashCode.Include
     private String id;
 
     private String titulo;
 
     private String descricao;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusIdeia status;
 
     private String area;
 
-    private String data;
-
-    private String autor;
-
-    private Integer baseKM;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ToString.Exclude
+    private Usuario autor;
 
     private boolean isStrategicBonus;
 
-    private String impacto;
+    @Enumerated(EnumType.STRING)
+    private Nivel impacto;
 
-    private String esforco;
+    @Enumerated(EnumType.STRING)
+    private Nivel esforco;
 
-    private String prioridade;
+    @Enumerated(EnumType.STRING)
+    private Prioridade prioridade;
 
-    private String prazo;
+    private LocalDate prazo;
 
-    private Float roiEsperado;
+    @Column(precision = 15, scale = 2)
+    private BigDecimal investimento;
 
-    private Float investimento;
+    @Column(precision = 15, scale = 2)
+    private BigDecimal retorno;
 
-    private Float retorno;
+    @CreatedDate
+    private LocalDateTime criadoEm;
 
-    private String observacaoProgresso;
+    @LastModifiedDate
+    private LocalDateTime atualizadoEm;
 
-    private String responsavel;
-
-    @OneToMany(mappedBy = "ideia", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<MarcoProjeto> marcos = new ArrayList<>();
+    /**
+     * Derived, never stored - delegates to the same {@link CalculadoraRoi} the Dashboard uses, so
+     * the two can never disagree. {@code null} when {@code retorno} or {@code investimento} is
+     * null, or {@code investimento} is zero.
+     */
+    @Transient
+    public BigDecimal getRoiEsperado() {
+        if (retorno == null) {
+            return null;
+        }
+        return CalculadoraRoi.calcular(retorno, investimento);
+    }
 }
