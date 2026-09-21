@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProjetoRepository extends MongoRepository<Projeto, String> {
 
@@ -29,4 +30,6 @@ public interface ProjetoRepository extends MongoRepository<Projeto, String> {
         "} }"
     })
     AgregadoProjetosProjection buscarAgregado();
+
+    Optional<Projeto> findByTitulo(String titulo);
 }

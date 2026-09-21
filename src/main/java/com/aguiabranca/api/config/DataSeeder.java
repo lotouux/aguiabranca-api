@@ -14,9 +14,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Configuration
 @RequiredArgsConstructor
@@ -37,7 +34,6 @@ public class DataSeeder implements CommandLineRunner {
         ideiaRepository.deleteAll();
         focoRepository.deleteAll();
         usuarioRepository.deleteAll();
-
         log.info("Banco limpo para execução do seeder");
     }
 
@@ -52,49 +48,96 @@ public class DataSeeder implements CommandLineRunner {
     private void seedUsuarios() {
         String senha = passwordEncoder.encode("123");
 
-        usuarioRepository.save(
-                new Usuario(null, "Pedro Miranda", "OP001", senha, TipoPerfil.OPERADOR)
+        criarUsuarioSeNaoExistir(
+                "OP001",
+                "Pedro Miranda",
+                senha,
+                TipoPerfil.OPERADOR
         );
 
-        usuarioRepository.save(
-                new Usuario(null, "Leonardo Martin", "GS001", senha, TipoPerfil.GESTOR)
+        criarUsuarioSeNaoExistir(
+                "GS001",
+                "Leonardo Martin",
+                senha,
+                TipoPerfil.GESTOR
         );
 
+        criarUsuarioSeNaoExistir(
+                "LD001",
+                "Beatriz Camargo",
+                senha,
+                TipoPerfil.LIDERANCA
+        );
+    }
+
+    private void criarUsuarioSeNaoExistir(
+            String matricula,
+            String nome,
+            String senha,
+            TipoPerfil perfil
+    ) {
+        if (usuarioRepository.findByMatricula(matricula).isPresent()) {
+            log.info("Usuário {} já existe", matricula);
+            return;
+        }
+
         usuarioRepository.save(
-                new Usuario(null, "Beatriz Camargo", "LD001", senha, TipoPerfil.LIDERANCA)
+                new Usuario(null, nome, matricula, senha, perfil)
         );
 
-        log.info("Usuários criados");
+        log.info("Usuário {} criado", matricula);
     }
 
     private void seedFocos() {
-        focoRepository.save(new FocoEstrategico(
-                null,
+
+        criarFocoSeNaoExistir(
                 "Jun",
                 "Redução de Emissões",
                 "Foco em ideias que reduzam a pegada de carbono da frota em 15%.",
                 List.of("Logística", "Operação"),
                 true
-        ));
+        );
 
-        focoRepository.save(new FocoEstrategico(
-                null,
+        criarFocoSeNaoExistir(
                 "Jul",
                 "Eficiência em Logística",
                 "Otimizar processos de carga e descarga para reduzir tempo em 20%.",
                 List.of("Logística"),
                 false
+        );
+    }
+
+    private void criarFocoSeNaoExistir(
+            String mes,
+            String titulo,
+            String descricao,
+            List<String> areas,
+            boolean ativo
+    ) {
+        if (focoRepository.findByMes(mes).isPresent()) {
+            log.info("Foco {} já existe", mes);
+            return;
+        }
+
+        focoRepository.save(new FocoEstrategico(
+                null,
+                mes,
+                titulo,
+                descricao,
+                areas,
+                ativo
         ));
 
-        log.info("Focos Estratégicos criados");
+        log.info("Foco {} criado", mes);
     }
 
     private void seedIdeias() {
+
         Usuario autor = usuarioRepository
                 .findByMatricula("OP001")
                 .orElseThrow();
 
-        ideiaRepository.save(novaIdeia(
+        criarIdeiaSeNaoExistir(
                 autor,
                 "Sistema de Roteirização Inteligente",
                 "Otimização de rotas via IA.",
@@ -107,9 +150,9 @@ public class DataSeeder implements CommandLineRunner {
                 LocalDate.of(2026, 6, 29),
                 new BigDecimal("150000.00"),
                 new BigDecimal("450000.00")
-        ));
+        );
 
-        ideiaRepository.save(novaIdeia(
+        criarIdeiaSeNaoExistir(
                 autor,
                 "App de Check-in Rápido",
                 "Implementar IA para otimizar rotas de entregas, reduzindo tempo e combustível.",
@@ -122,9 +165,9 @@ public class DataSeeder implements CommandLineRunner {
                 LocalDate.of(2026, 7, 5),
                 new BigDecimal("150000.00"),
                 new BigDecimal("420000.00")
-        ));
+        );
 
-        ideiaRepository.save(novaIdeia(
+        criarIdeiaSeNaoExistir(
                 autor,
                 "Programa de Fidelidade B2B",
                 "Benefícios para clientes de carga regulares.",
@@ -137,9 +180,9 @@ public class DataSeeder implements CommandLineRunner {
                 LocalDate.of(2027, 12, 30),
                 null,
                 null
-        ));
+        );
 
-        ideiaRepository.save(novaIdeia(
+        criarIdeiaSeNaoExistir(
                 autor,
                 "Monitoramento de Pneus IoT",
                 "Sensores para monitorar pressão e temperatura dos pneus em tempo real.",
@@ -152,9 +195,9 @@ public class DataSeeder implements CommandLineRunner {
                 null,
                 null,
                 null
-        ));
+        );
 
-        ideiaRepository.save(novaIdeia(
+        criarIdeiaSeNaoExistir(
                 autor,
                 "Sistema de Feedback Automatizado",
                 "Coleta automática de feedback pós-viagem com análise de sentimento.",
@@ -167,9 +210,9 @@ public class DataSeeder implements CommandLineRunner {
                 LocalDate.of(2026, 6, 20),
                 new BigDecimal("85000.00"),
                 new BigDecimal("289000.00")
-        ));
+        );
 
-        ideiaRepository.save(novaIdeia(
+        criarIdeiaSeNaoExistir(
                 autor,
                 "Substituição de Frota por Veículos Elétricos",
                 "Eletrificação gradual da frota urbana.",
@@ -182,17 +225,50 @@ public class DataSeeder implements CommandLineRunner {
                 null,
                 null,
                 null
-        ));
-
-        ideiaRepository.findAll().forEach(ideia ->
-                log.info(
-                        "IDEIA: {} | ID: {}",
-                        ideia.getTitulo(),
-                        ideia.getId()
-                )
         );
+    }
 
-        log.info("Ideias criadas");
+    private Ideia criarIdeiaSeNaoExistir(
+            Usuario autor,
+            String titulo,
+            String descricao,
+            StatusIdeia status,
+            String area,
+            boolean strategicBonus,
+            Nivel impacto,
+            Nivel esforco,
+            Prioridade prioridade,
+            LocalDate prazo,
+            BigDecimal investimento,
+            BigDecimal retorno
+    ) {
+        return ideiaRepository.findByTitulo(titulo)
+                .orElseGet(() -> {
+                    Ideia ideia = novaIdeia(
+                            autor,
+                            titulo,
+                            descricao,
+                            status,
+                            area,
+                            strategicBonus,
+                            impacto,
+                            esforco,
+                            prioridade,
+                            prazo,
+                            investimento,
+                            retorno
+                    );
+
+                    Ideia salva = ideiaRepository.save(ideia);
+
+                    log.info(
+                            "Ideia '{}' criada | ID: {}",
+                            salva.getTitulo(),
+                            salva.getId()
+                    );
+
+                    return salva;
+                });
     }
 
     private Ideia novaIdeia(
@@ -233,18 +309,19 @@ public class DataSeeder implements CommandLineRunner {
                 .findByMatricula("GS001")
                 .orElseThrow();
 
-        Map<String, Ideia> ideiasPorTitulo = ideiaRepository.findAll()
-                .stream()
-                .collect(Collectors.toMap(
-                        Ideia::getTitulo,
-                        Function.identity()
-                ));
+        Ideia roteirizacaoIdeia = ideiaRepository
+                .findByTitulo("Sistema de Roteirização Inteligente")
+                .orElseThrow();
 
-        // =========================================================
-        // PROJETO 1
-        // =========================================================
+        Ideia checkinIdeia = ideiaRepository
+                .findByTitulo("App de Check-in Rápido")
+                .orElseThrow();
 
-        Projeto roteirizacao = novoProjeto(
+        Ideia fidelidadeIdeia = ideiaRepository
+                .findByTitulo("Programa de Fidelidade B2B")
+                .orElseThrow();
+
+        Projeto roteirizacao = criarProjetoSeNaoExistir(
                 "Plataforma de Roteirização",
                 "Roteirização inteligente das rotas de entrega.",
                 "Logística",
@@ -258,58 +335,39 @@ public class DataSeeder implements CommandLineRunner {
                 120
         );
 
-        roteirizacao.getIdeias().add(
-                ideiasPorTitulo.get("Sistema de Roteirização Inteligente")
+        adicionarIdeiaSeNaoExistir(roteirizacao, roteirizacaoIdeia);
+
+        adicionarTarefaSeNaoExistir(
+                roteirizacao,
+                "Análise de Requisitos",
+                StatusTarefa.CONCLUIDA,
+                LocalDate.of(2026, 1, 20)
         );
 
-        // Salva primeiro para gerar o ID do projeto
-        roteirizacao = projetoRepository.save(roteirizacao);
-
-        Tarefa r1 = tarefaRepository.save(
-                novaTarefa(
-                        "Análise de Requisitos",
-                        StatusTarefa.CONCLUIDA,
-                        LocalDate.of(2026, 1, 20),
-                        roteirizacao
-                )
+        adicionarTarefaSeNaoExistir(
+                roteirizacao,
+                "MVP desenvolvido",
+                StatusTarefa.CONCLUIDA,
+                LocalDate.of(2026, 3, 1)
         );
 
-        Tarefa r2 = tarefaRepository.save(
-                novaTarefa(
-                        "MVP desenvolvido",
-                        StatusTarefa.CONCLUIDA,
-                        LocalDate.of(2026, 3, 1),
-                        roteirizacao
-                )
+        adicionarTarefaSeNaoExistir(
+                roteirizacao,
+                "Testes piloto",
+                StatusTarefa.CONCLUIDA,
+                LocalDate.of(2026, 4, 15)
         );
 
-        Tarefa r3 = tarefaRepository.save(
-                novaTarefa(
-                        "Testes piloto",
-                        StatusTarefa.CONCLUIDA,
-                        LocalDate.of(2026, 4, 15),
-                        roteirizacao
-                )
+        adicionarTarefaSeNaoExistir(
+                roteirizacao,
+                "Rollout completo",
+                StatusTarefa.CONCLUIDA,
+                LocalDate.of(2026, 6, 10)
         );
-
-        Tarefa r4 = tarefaRepository.save(
-                novaTarefa(
-                        "Rollout completo",
-                        StatusTarefa.CONCLUIDA,
-                        LocalDate.of(2026, 6, 10),
-                        roteirizacao
-                )
-        );
-
-        roteirizacao.setTarefas(List.of(r1, r2, r3, r4));
 
         projetoRepository.save(roteirizacao);
 
-        // =========================================================
-        // PROJETO 2
-        // =========================================================
-
-        Projeto checkin = novoProjeto(
+        Projeto checkin = criarProjetoSeNaoExistir(
                 "Check-in Digital",
                 "App de check-in rápido para reduzir tempo de espera.",
                 "Logística",
@@ -323,57 +381,39 @@ public class DataSeeder implements CommandLineRunner {
                 80
         );
 
-        checkin.getIdeias().add(
-                ideiasPorTitulo.get("App de Check-in Rápido")
+        adicionarIdeiaSeNaoExistir(checkin, checkinIdeia);
+
+        adicionarTarefaSeNaoExistir(
+                checkin,
+                "Planejamento e levantamento de requisitos",
+                StatusTarefa.CONCLUIDA,
+                LocalDate.of(2026, 2, 12)
         );
 
-        checkin = projetoRepository.save(checkin);
-
-        Tarefa c1 = tarefaRepository.save(
-                novaTarefa(
-                        "Planejamento e levantamento de requisitos",
-                        StatusTarefa.CONCLUIDA,
-                        LocalDate.of(2026, 2, 12),
-                        checkin
-                )
+        adicionarTarefaSeNaoExistir(
+                checkin,
+                "Desenvolvimento do backend de rastreamento",
+                StatusTarefa.EM_ANDAMENTO,
+                null
         );
 
-        Tarefa c2 = tarefaRepository.save(
-                novaTarefa(
-                        "Desenvolvimento do backend de rastreamento",
-                        StatusTarefa.EM_ANDAMENTO,
-                        null,
-                        checkin
-                )
+        adicionarTarefaSeNaoExistir(
+                checkin,
+                "Implementação do dashboard mobile",
+                StatusTarefa.PENDENTE,
+                null
         );
 
-        Tarefa c3 = tarefaRepository.save(
-                novaTarefa(
-                        "Implementação do dashboard mobile",
-                        StatusTarefa.PENDENTE,
-                        null,
-                        checkin
-                )
+        adicionarTarefaSeNaoExistir(
+                checkin,
+                "Testes finais e publicação",
+                StatusTarefa.PENDENTE,
+                null
         );
-
-        Tarefa c4 = tarefaRepository.save(
-                novaTarefa(
-                        "Testes finais e publicação",
-                        StatusTarefa.PENDENTE,
-                        null,
-                        checkin
-                )
-        );
-
-        checkin.setTarefas(List.of(c1, c2, c3, c4));
 
         projetoRepository.save(checkin);
 
-        // =========================================================
-        // PROJETO 3
-        // =========================================================
-
-        Projeto fidelidade = novoProjeto(
+        Projeto fidelidade = criarProjetoSeNaoExistir(
                 "Fidelidade B2B",
                 "Programa de fidelidade para clientes de carga regulares.",
                 "Comércio",
@@ -387,44 +427,141 @@ public class DataSeeder implements CommandLineRunner {
                 0
         );
 
-        fidelidade.getIdeias().add(
-                ideiasPorTitulo.get("Programa de Fidelidade B2B")
+        adicionarIdeiaSeNaoExistir(fidelidade, fidelidadeIdeia);
+
+        adicionarTarefaSeNaoExistir(
+                fidelidade,
+                "Definição de regras de pontuação",
+                StatusTarefa.PENDENTE,
+                null
         );
 
-        fidelidade = projetoRepository.save(fidelidade);
-
-        Tarefa f1 = tarefaRepository.save(
-                novaTarefa(
-                        "Definição de regras de pontuação",
-                        StatusTarefa.PENDENTE,
-                        null,
-                        fidelidade
-                )
+        adicionarTarefaSeNaoExistir(
+                fidelidade,
+                "Integração com sistema de faturamento",
+                StatusTarefa.PENDENTE,
+                null
         );
 
-        Tarefa f2 = tarefaRepository.save(
-                novaTarefa(
-                        "Integração com sistema de faturamento",
-                        StatusTarefa.PENDENTE,
-                        null,
-                        fidelidade
-                )
+        adicionarTarefaSeNaoExistir(
+                fidelidade,
+                "Piloto com clientes-chave",
+                StatusTarefa.PENDENTE,
+                null
         );
-
-        Tarefa f3 = tarefaRepository.save(
-                novaTarefa(
-                        "Piloto com clientes-chave",
-                        StatusTarefa.PENDENTE,
-                        null,
-                        fidelidade
-                )
-        );
-
-        fidelidade.setTarefas(List.of(f1, f2, f3));
 
         projetoRepository.save(fidelidade);
 
-        log.info("Projetos criados");
+        log.info("Projetos verificados/criados");
+    }
+
+    private Projeto criarProjetoSeNaoExistir(
+            String titulo,
+            String descricao,
+            String area,
+            Usuario responsavel,
+            StatusProjeto status,
+            LocalDate dataInicio,
+            LocalDate dataPrevistaConclusao,
+            BigDecimal investimento,
+            BigDecimal economiaAnualEstimada,
+            BigDecimal economiaAnualRealizada,
+            Integer horasEconomizadasMes
+    ) {
+        return projetoRepository.findByTitulo(titulo)
+                .orElseGet(() -> {
+
+                    Projeto projeto = novoProjeto(
+                            titulo,
+                            descricao,
+                            area,
+                            responsavel,
+                            status,
+                            dataInicio,
+                            dataPrevistaConclusao,
+                            investimento,
+                            economiaAnualEstimada,
+                            economiaAnualRealizada,
+                            horasEconomizadasMes
+                    );
+
+                    Projeto salvo = projetoRepository.save(projeto);
+
+                    log.info(
+                            "Projeto '{}' criado | ID: {}",
+                            salvo.getTitulo(),
+                            salvo.getId()
+                    );
+
+                    return salvo;
+                });
+    }
+
+    private void adicionarIdeiaSeNaoExistir(
+            Projeto projeto,
+            Ideia ideia
+    ) {
+        if (ideia == null) {
+            return;
+        }
+
+        if (projeto.getIdeias() == null) {
+            projeto.setIdeias(new java.util.HashSet<>());
+        }
+
+        boolean jaExiste = projeto.getIdeias()
+                .stream()
+                .anyMatch(i -> i.getId().equals(ideia.getId()));
+
+        if (!jaExiste) {
+            projeto.getIdeias().add(ideia);
+            log.info(
+                    "Ideia '{}' adicionada ao projeto '{}'",
+                    ideia.getTitulo(),
+                    projeto.getTitulo()
+            );
+        }
+    }
+
+    private void adicionarTarefaSeNaoExistir(
+            Projeto projeto,
+            String titulo,
+            StatusTarefa status,
+            LocalDate dataConclusao
+    ) {
+        if (projeto.getTarefas() == null) {
+            projeto.setTarefas(new ArrayList<>());
+        }
+
+        boolean jaExiste = projeto.getTarefas()
+                .stream()
+                .anyMatch(t -> titulo.equals(t.getTitulo()));
+
+        if (jaExiste) {
+            log.info(
+                    "Tarefa '{}' já existe no projeto '{}'",
+                    titulo,
+                    projeto.getTitulo()
+            );
+            return;
+        }
+
+        Tarefa tarefa = new Tarefa();
+        tarefa.setTitulo(titulo);
+        tarefa.setStatus(status);
+        tarefa.setDataConclusao(dataConclusao);
+        tarefa.setProjeto(projeto);
+
+        Tarefa salva = tarefaRepository.save(tarefa);
+
+        projeto.getTarefas().add(salva);
+
+        log.info(
+                "Tarefa '{}' criada | Projeto: {} | ID: {}",
+                salva.getTitulo(),
+                projeto.getTitulo(),
+                salva.getId()
+        );
     }
 
     private Projeto novoProjeto(
@@ -456,21 +593,5 @@ public class DataSeeder implements CommandLineRunner {
         projeto.setTarefas(new ArrayList<>());
 
         return projeto;
-    }
-
-    private Tarefa novaTarefa(
-            String titulo,
-            StatusTarefa status,
-            LocalDate dataConclusao,
-            Projeto projeto
-    ) {
-        Tarefa tarefa = new Tarefa();
-
-        tarefa.setTitulo(titulo);
-        tarefa.setStatus(status);
-        tarefa.setDataConclusao(dataConclusao);
-        tarefa.setProjeto(projeto);
-
-        return tarefa;
     }
 }

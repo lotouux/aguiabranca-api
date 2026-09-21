@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.Update;
 
+import java.util.Optional;
+
 public interface FocoEstrategicoRepository extends MongoRepository<FocoEstrategico, Long> {
 
     long countByAtivoTrue();
@@ -17,4 +19,5 @@ public interface FocoEstrategicoRepository extends MongoRepository<FocoEstrategi
     @Update("{ '$set': { 'ativo': true } }")
     void ativarPorId(Long id);
 
+    Optional<FocoEstrategico> findByMes(String mes);
 }
