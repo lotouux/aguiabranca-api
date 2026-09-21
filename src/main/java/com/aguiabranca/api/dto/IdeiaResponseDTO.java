@@ -15,7 +15,7 @@ public record IdeiaResponseDTO(
         StatusIdeia status,
         String area,
         String autor,
-        Long autorId,
+        String autorId,
         boolean strategicBonus,
         Nivel impacto,
         Nivel esforco,

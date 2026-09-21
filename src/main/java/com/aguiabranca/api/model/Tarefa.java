@@ -19,7 +19,7 @@ public class Tarefa {
 
     @Id
     @EqualsAndHashCode.Include
-    private Long id; // Alterado de Integer para String para compatibilidade com o ObjectId do Mongo
+    private String id; // Alterado de Integer para String para compatibilidade com o ObjectId do Mongo
 
     private String titulo;
 

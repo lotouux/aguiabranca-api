@@ -27,7 +27,7 @@ public class TarefaService {
     private final TarefaRepository tarefaRepository;
     private final Clock clock;
 
-    public TarefaDTO criar(Long projetoId, CriarTarefaDTO dto) {
+    public TarefaDTO criar(String projetoId, CriarTarefaDTO dto) {
         Projeto projeto = buscarProjeto(projetoId);
         garantirProjetoAberto(projeto);
         Tarefa tarefa = new Tarefa();
@@ -37,7 +37,7 @@ public class TarefaService {
         return TarefaDTO.from(tarefaRepository.save(tarefa));
     }
 
-    public TarefaDTO atualizar(Long projetoId, Long tarefaId, AtualizarTarefaRequestDTO dto) {
+    public TarefaDTO atualizar(String projetoId, String tarefaId, AtualizarTarefaRequestDTO dto) {
         Tarefa tarefa = carregarTarefaDo(projetoId, tarefaId);
         garantirProjetoAberto(tarefa.getProjeto());
         tarefa.setStatus(dto.status());
@@ -45,13 +45,13 @@ public class TarefaService {
         return TarefaDTO.from(tarefaRepository.save(tarefa));
     }
 
-    public void excluir(Long projetoId, Long tarefaId) {
+    public void excluir(String projetoId, String tarefaId) {
         Tarefa tarefa = carregarTarefaDo(projetoId, tarefaId);
         garantirProjetoAberto(tarefa.getProjeto());
         tarefaRepository.delete(tarefa);
     }
 
-    private Projeto buscarProjeto(Long projetoId) {
+    private Projeto buscarProjeto(String projetoId) {
         return projetoRepository.findById(projetoId)
                 .orElseThrow(() -> new NotFoundException("Projeto não encontrado."));
     }
@@ -62,7 +62,7 @@ public class TarefaService {
         }
     }
 
-    private Tarefa carregarTarefaDo(Long projetoId, Long tarefaId) {
+    private Tarefa carregarTarefaDo(String projetoId, String tarefaId) {
         Tarefa tarefa = tarefaRepository.findById(tarefaId)
                 .orElseThrow(() -> new NotFoundException("Tarefa não encontrada."));
         if (!tarefa.getProjeto().getId().equals(projetoId)) {

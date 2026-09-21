@@ -5,5 +5,5 @@ import java.util.List;
 
 public record AttachIdeiasDTO(
         @NotEmpty(message = "A lista de IDs das ideias não pode estar vazia")
-        List<Long> ideiaIds
+        List<String> ideiaIds
 ) {}

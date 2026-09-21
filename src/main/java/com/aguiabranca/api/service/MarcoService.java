@@ -23,14 +23,14 @@ public class MarcoService {
     private final IdeiaRepository ideiaRepository;
 
     @Transactional(readOnly = true)
-    public List<MarcoDTO> listar(Long ideiaId) {
+    public List<MarcoDTO> listar(String ideiaId) {
         buscarIdeiaOuFalhar(ideiaId);
         return marcoRepository.findByIdeiaId(ideiaId).stream()
                 .map(MarcoDTO::from)
                 .toList();
     }
 
-    public MarcoDTO criar(Long ideiaId, CriarMarcoDTO dto) {
+    public MarcoDTO criar(String ideiaId, CriarMarcoDTO dto) {
         Ideia ideia = buscarIdeiaOuFalhar(ideiaId);
 
         Marco marco = new Marco();
@@ -42,7 +42,7 @@ public class MarcoService {
         return MarcoDTO.from(marcoRepository.save(marco));
     }
 
-    public MarcoDTO atualizar(Long ideiaId, String marcoId, AtualizarMarcoDTO dto) {
+    public MarcoDTO atualizar(String ideiaId, String marcoId, AtualizarMarcoDTO dto) {
         buscarIdeiaOuFalhar(ideiaId);
         Marco marco = marcoRepository.findById(marcoId)
                 .orElseThrow(() -> new NotFoundException("Marco não encontrado: " + marcoId));
@@ -63,7 +63,7 @@ public class MarcoService {
         return MarcoDTO.from(marcoRepository.save(marco));
     }
 
-    private Ideia buscarIdeiaOuFalhar(Long ideiaId) {
+    private Ideia buscarIdeiaOuFalhar(String ideiaId) {
         return ideiaRepository.findById(ideiaId)
                 .orElseThrow(() -> new NotFoundException("Ideia não encontrada: " + ideiaId));
     }

@@ -30,7 +30,7 @@ public class IdeiaController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('OPERADOR')")
-    public ResponseEntity<IdeiaResponseDTO> buscarPorId(@PathVariable Long id,
+    public ResponseEntity<IdeiaResponseDTO> buscarPorId(@PathVariable String id,
             @AuthenticationPrincipal UsuarioAutenticado principal) {
         return ResponseEntity.ok(ideiaService.buscarPorId(id, principal));
     }
@@ -45,7 +45,7 @@ public class IdeiaController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('GESTOR')")
-    public ResponseEntity<IdeiaResponseDTO> atualizar(@PathVariable Long id,
+    public ResponseEntity<IdeiaResponseDTO> atualizar(@PathVariable String id,
             @Valid @RequestBody AtualizarIdeiaRequestDTO dto) {
         return ResponseEntity.ok(ideiaService.atualizar(id, dto));
     }
@@ -54,20 +54,20 @@ public class IdeiaController {
 
     @GetMapping("/{id}/marcos")
     @PreAuthorize("hasRole('OPERADOR')")
-    public ResponseEntity<List<MarcoDTO>> listarMarcos(@PathVariable Long id) {
+    public ResponseEntity<List<MarcoDTO>> listarMarcos(@PathVariable String id) {
         return ResponseEntity.ok(marcoService.listar(id));
     }
 
     @PostMapping("/{id}/marcos")
     @PreAuthorize("hasRole('GESTOR')")
-    public ResponseEntity<MarcoDTO> criarMarco(@PathVariable Long id,
+    public ResponseEntity<MarcoDTO> criarMarco(@PathVariable String id,
             @Valid @RequestBody CriarMarcoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(marcoService.criar(id, dto));
     }
 
     @PatchMapping("/{id}/marcos/{marcoId}")
     @PreAuthorize("hasRole('GESTOR')")
-    public ResponseEntity<MarcoDTO> atualizarMarco(@PathVariable Long id,
+    public ResponseEntity<MarcoDTO> atualizarMarco(@PathVariable String id,
             @PathVariable String marcoId,
             @RequestBody AtualizarMarcoDTO dto) {
         return ResponseEntity.ok(marcoService.atualizar(id, marcoId, dto));

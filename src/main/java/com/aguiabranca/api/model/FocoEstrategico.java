@@ -17,7 +17,7 @@ public class FocoEstrategico {
 
     @Id
     @EqualsAndHashCode.Include
-    private Long id;
+    private String id;
 
     private String mes;
 

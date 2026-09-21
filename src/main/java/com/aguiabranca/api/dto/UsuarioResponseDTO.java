@@ -4,7 +4,7 @@ import com.aguiabranca.api.model.Usuario;
 import com.aguiabranca.api.model.enums.TipoPerfil;
 
 public record UsuarioResponseDTO(
-        Long id,
+        String id,
         String nome,
         String matricula,
         TipoPerfil perfil

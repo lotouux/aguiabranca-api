@@ -33,7 +33,7 @@ public class IdeiaService {
     }
 
     @Transactional(readOnly = true)
-    public IdeiaResponseDTO buscarPorId(Long id, UsuarioAutenticado principal) {
+    public IdeiaResponseDTO buscarPorId(String id, UsuarioAutenticado principal) {
         Ideia ideia = ideiaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Ideia não encontrada: " + id));
         return IdeiaResponseDTO.from(ideia);
@@ -62,7 +62,7 @@ public class IdeiaService {
         return IdeiaResponseDTO.from(salva);
     }
 
-    public IdeiaResponseDTO atualizar(Long id, AtualizarIdeiaRequestDTO dto) {
+    public IdeiaResponseDTO atualizar(String id, AtualizarIdeiaRequestDTO dto) {
         Ideia ideia = ideiaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Ideia não encontrada: " + id));
 

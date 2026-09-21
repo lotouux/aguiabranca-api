@@ -29,7 +29,7 @@ public class Projeto {
 
     @Id
     @EqualsAndHashCode.Include
-    private Long id;
+    private String id;
 
     private String titulo;
 

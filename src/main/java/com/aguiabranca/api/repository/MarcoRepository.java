@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MarcoRepository extends MongoRepository<Marco, String> {
 
-    List<Marco> findByIdeiaId(Long ideiaId);
+    List<Marco> findByIdeiaId(String ideiaId);
 }

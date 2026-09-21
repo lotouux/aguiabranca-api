@@ -28,7 +28,7 @@ public class ProjetoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjetoResponseDTO> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<ProjetoResponseDTO> buscarPorId(@PathVariable String id) {
         return ResponseEntity.ok(projetoService.buscarPorId(id));
     }
 
@@ -38,42 +38,42 @@ public class ProjetoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ProjetoResponseDTO> atualizar(@PathVariable Long id,
+    public ResponseEntity<ProjetoResponseDTO> atualizar(@PathVariable String id,
             @Valid @RequestBody AtualizarProjetoRequestDTO dto) {
         return ResponseEntity.ok(projetoService.atualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    public ResponseEntity<Void> excluir(@PathVariable String id) {
         projetoService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{id}/ideias")
-    public ResponseEntity<ProjetoResponseDTO> vincularIdeias(@PathVariable Long id,
+    public ResponseEntity<ProjetoResponseDTO> vincularIdeias(@PathVariable String id,
             @Valid @RequestBody AttachIdeiasDTO dto) {
         return ResponseEntity.ok(projetoService.vincularIdeias(id, dto.ideiaIds()));
     }
 
     @DeleteMapping("/{id}/ideias/{ideiaId}")
-    public ResponseEntity<Void> desvincularIdeia(@PathVariable Long id, @PathVariable Long ideiaId) {
+    public ResponseEntity<Void> desvincularIdeia(@PathVariable String id, @PathVariable String ideiaId) {
         projetoService.desvincularIdeia(id, ideiaId);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{id}/tarefas")
-    public ResponseEntity<TarefaDTO> criarTarefa(@PathVariable Long id, @Valid @RequestBody CriarTarefaDTO dto) {
+    public ResponseEntity<TarefaDTO> criarTarefa(@PathVariable String id, @Valid @RequestBody CriarTarefaDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.criar(id, dto));
     }
 
     @PatchMapping("/{id}/tarefas/{tarefaId}")
-    public ResponseEntity<TarefaDTO> atualizarTarefa(@PathVariable Long id, @PathVariable Long tarefaId,
+    public ResponseEntity<TarefaDTO> atualizarTarefa(@PathVariable String id, @PathVariable String tarefaId,
             @Valid @RequestBody AtualizarTarefaRequestDTO dto) {
         return ResponseEntity.ok(tarefaService.atualizar(id, tarefaId, dto));
     }
 
     @DeleteMapping("/{id}/tarefas/{tarefaId}")
-    public ResponseEntity<Void> excluirTarefa(@PathVariable Long id, @PathVariable Long tarefaId) {
+    public ResponseEntity<Void> excluirTarefa(@PathVariable String id, @PathVariable String tarefaId) {
         tarefaService.excluir(id, tarefaId);
         return ResponseEntity.noContent().build();
     }

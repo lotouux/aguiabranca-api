@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface IdeiaRepository extends MongoRepository<Ideia, Long> {
-    List<Ideia> findByAutorId(Long autorId);
+public interface IdeiaRepository extends MongoRepository<Ideia, String> {
+    List<Ideia> findByAutorId(String autorId);
 }

@@ -8,13 +8,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record ProjetoResponseDTO(
-        Long id,
+        String id,
         String titulo,
         String descricao,
         String area,
         String observacao,
         StatusProjeto status,
-        Long responsavelId,
+        String responsavelId,
         String responsavelNome,
         LocalDate dataInicio,
         LocalDate dataPrevistaConclusao,

@@ -36,7 +36,7 @@ public class ProjetoService {
     }
 
     @Transactional(readOnly = true)
-    public ProjetoResponseDTO buscarPorId(Long id) {
+    public ProjetoResponseDTO buscarPorId(String id) {
         return ProjetoResponseDTO.from(buscarOuFalhar(id));
     }
 
@@ -57,7 +57,7 @@ public class ProjetoService {
         return ProjetoResponseDTO.from(projetoRepository.save(projeto));
     }
 
-    public ProjetoResponseDTO atualizar(Long id, AtualizarProjetoRequestDTO dto) {
+    public ProjetoResponseDTO atualizar(String id, AtualizarProjetoRequestDTO dto) {
         Projeto projeto = buscarOuFalhar(id);
 
         if (dto.titulo() != null) {
@@ -99,7 +99,7 @@ public class ProjetoService {
         return ProjetoResponseDTO.from(projetoRepository.save(projeto));
     }
 
-    public void excluir(Long id) {
+    public void excluir(String id) {
         Projeto projeto = buscarOuFalhar(id);
         if (projeto.getStatus() != StatusProjeto.PLANEJADO) {
             throw new ConflictException("Somente projetos em planejamento podem ser excluídos.");
@@ -108,12 +108,12 @@ public class ProjetoService {
         projetoRepository.deleteById(id);
     }
 
-    public ProjetoResponseDTO vincularIdeias(Long projetoId, List<Long> ideiaIds) {
+    public ProjetoResponseDTO vincularIdeias(String projetoId, List<String> ideiaIds) {
         Projeto projeto = buscarOuFalhar(projetoId);
         garantirProjetoNaoEncerrado(projeto);
 
         List<Ideia> ideias = new ArrayList<>();
-        for (Long ideiaId : ideiaIds) {
+        for (String ideiaId : ideiaIds) {
             Ideia ideia = ideiaRepository.findById(ideiaId)
                     .orElseThrow(() -> new NotFoundException("Ideia não encontrada: " + ideiaId));
             if (!projeto.getIdeias().contains(ideia) && ideia.getStatus() != StatusIdeia.APROVADA) {
@@ -130,7 +130,7 @@ public class ProjetoService {
         return ProjetoResponseDTO.from(projetoRepository.save(projeto));
     }
 
-    public void desvincularIdeia(Long projetoId, Long ideiaId) {
+    public void desvincularIdeia(String projetoId, String ideiaId) {
         Projeto projeto = buscarOuFalhar(projetoId);
         garantirProjetoNaoEncerrado(projeto);
         Ideia ideia = ideiaRepository.findById(ideiaId)
@@ -183,7 +183,7 @@ public class ProjetoService {
                 .orElseThrow(() -> new NotFoundException("Usuário responsável não encontrado: " + usuarioId));
     }
 
-    private Projeto buscarOuFalhar(Long id) {
+    private Projeto buscarOuFalhar(String id) {
         return projetoRepository.findById(id).orElseThrow(() -> new NotFoundException("Projeto não encontrado."));
     }
 }
