@@ -39,6 +39,13 @@ public class IdeiaService {
         return IdeiaResponseDTO.from(ideia);
     }
 
+    public List<IdeiaResponseDTO> listarPorMatricula(String matricula) {
+        return ideiaRepository.findByAutorMatricula(matricula)
+                .stream()
+                .map(IdeiaResponseDTO::from)
+                .toList();
+    }
+
     public IdeiaResponseDTO criar(CriarIdeiaDTO dto, UsuarioAutenticado principal) {
         Usuario autor = usuarioRepository.findById(principal.id())
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));

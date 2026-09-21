@@ -10,4 +10,6 @@ public interface IdeiaRepository extends MongoRepository<Ideia, String> {
     List<Ideia> findByAutorId(String autorId);
 
     Optional<Ideia> findByTitulo(String titulo);
+
+    List<Ideia> findByAutorMatricula(String matricula);
 }

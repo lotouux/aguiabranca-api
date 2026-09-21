@@ -35,6 +35,15 @@ public class IdeiaController {
         return ResponseEntity.ok(ideiaService.buscarPorId(id, principal));
     }
 
+    @GetMapping("/minhas")
+    public ResponseEntity<List<IdeiaResponseDTO>> minhasIdeias(
+            @AuthenticationPrincipal UsuarioAutenticado usuario
+    ) {
+        return ResponseEntity.ok(
+                ideiaService.listarPorMatricula(usuario.matricula())
+        );
+    }
+
     @PostMapping
     @PreAuthorize("hasRole('OPERADOR')")
     public ResponseEntity<IdeiaResponseDTO> criar(@Valid @RequestBody CriarIdeiaDTO dto,
