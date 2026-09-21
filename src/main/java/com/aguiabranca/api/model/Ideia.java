@@ -35,6 +35,8 @@ public class Ideia {
 
     private StatusIdeia status;
 
+    private String responsavel;
+
     private String area;
 
     @DBRef

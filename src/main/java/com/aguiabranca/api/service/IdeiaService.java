@@ -83,6 +83,9 @@ public class IdeiaService {
         if (dto.impacto() != null) {
             ideia.setImpacto(dto.impacto());
         }
+        if (dto.responsavel() != null) {
+            ideia.setResponsavel(dto.responsavel());
+        }
         if (dto.esforco() != null) {
             ideia.setEsforco(dto.esforco());
         }
