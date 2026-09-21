@@ -54,7 +54,9 @@ public class IdeiaService {
         ideia.setStatus(StatusIdeia.ENVIADA);
         ideia.setStrategicBonus(false);
 
-        return IdeiaResponseDTO.from(ideiaRepository.save(ideia));
+        Ideia salva = ideiaRepository.save(ideia);
+
+        return IdeiaResponseDTO.from(salva);
     }
 
     public IdeiaResponseDTO atualizar(Long id, AtualizarIdeiaRequestDTO dto) {

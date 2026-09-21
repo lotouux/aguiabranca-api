@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record IdeiaResponseDTO(
-        Long id,
+        String id,
         String titulo,
         String descricao,
         StatusIdeia status,

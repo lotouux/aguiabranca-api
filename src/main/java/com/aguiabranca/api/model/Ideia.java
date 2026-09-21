@@ -27,7 +27,7 @@ public class Ideia {
 
     @Id
     @EqualsAndHashCode.Include
-    private Long id;
+    private String id;
 
     private String titulo;
 
@@ -67,9 +67,10 @@ public class Ideia {
 
     @Transient
     public BigDecimal getRoiEsperado() {
-        if (retorno == null) {
+        if (retorno == null || investimento == null) {
             return null;
         }
+
         return CalculadoraRoi.calcular(retorno, investimento);
     }
 }

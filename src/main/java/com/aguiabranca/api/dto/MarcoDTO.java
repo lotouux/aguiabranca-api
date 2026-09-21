@@ -7,7 +7,7 @@ public record MarcoDTO(
         String titulo,
         boolean isCompleto,
         String observacao,
-        Long ideiaId
+        String ideiaId
 ) {
 
     public static MarcoDTO from(Marco marco) {

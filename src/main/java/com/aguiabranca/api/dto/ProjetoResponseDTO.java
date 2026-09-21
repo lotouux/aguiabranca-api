@@ -23,7 +23,7 @@ public record ProjetoResponseDTO(
         BigDecimal economiaAnualRealizada,
         Integer horasEconomizadasMes,
         int progresso,
-        List<Long> ideiaIds,
+        List<String> ideiaIds,
         List<TarefaDTO> tarefas
 ) {
 

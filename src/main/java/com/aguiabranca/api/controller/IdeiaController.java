@@ -39,6 +39,7 @@ public class IdeiaController {
     @PreAuthorize("hasRole('OPERADOR')")
     public ResponseEntity<IdeiaResponseDTO> criar(@Valid @RequestBody CriarIdeiaDTO dto,
             @AuthenticationPrincipal UsuarioAutenticado principal) {
+
         return ResponseEntity.status(HttpStatus.CREATED).body(ideiaService.criar(dto, principal));
     }
 

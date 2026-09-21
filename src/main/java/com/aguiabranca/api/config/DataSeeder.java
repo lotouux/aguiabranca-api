@@ -68,35 +68,35 @@ public class DataSeeder implements CommandLineRunner {
         }
         Usuario autor = usuarioRepository.findByMatricula("OP001").orElseThrow();
 
-        ideiaRepository.save(novaIdeia(1L, autor, "Sistema de Roteirização Inteligente",
+        ideiaRepository.save(novaIdeia("1", autor, "Sistema de Roteirização Inteligente",
                 "Otimização de rotas via IA.", StatusIdeia.CONCLUIDA, "Logística", false,
                 Nivel.ALTO, Nivel.ALTO, Prioridade.ALTA, LocalDate.of(2026, 6, 29),
                 new BigDecimal("150000.00"), new BigDecimal("450000.00")));
 
-        ideiaRepository.save(novaIdeia(2L, autor, "App de Check-in Rápido",
+        ideiaRepository.save(novaIdeia("2", autor, "App de Check-in Rápido",
                 "Implementar IA para otimizar rotas de entregas, reduzindo tempo e combustível.",
                 StatusIdeia.EM_EXECUCAO, "Logística", true,
                 Nivel.ALTO, Nivel.MEDIO, Prioridade.ALTA, LocalDate.of(2026, 7, 5),
                 new BigDecimal("150000.00"), new BigDecimal("420000.00")));
 
-        ideiaRepository.save(novaIdeia(3L, autor, "Programa de Fidelidade B2B",
+        ideiaRepository.save(novaIdeia("3", autor, "Programa de Fidelidade B2B",
                 "Benefícios para clientes de carga regulares.",
                 StatusIdeia.EM_EXECUCAO, "Comércio", false,
                 Nivel.MEDIO, Nivel.BAIXO, Prioridade.MEDIA, LocalDate.of(2027, 12, 30),
                 null, null));
 
-        ideiaRepository.save(novaIdeia(4L, autor, "Monitoramento de Pneus IoT",
+        ideiaRepository.save(novaIdeia("4", autor, "Monitoramento de Pneus IoT",
                 "Sensores para monitorar pressão e temperatura dos pneus em tempo real.",
                 StatusIdeia.ENVIADA, "Logística", false,
                 null, null, null, null, null, null));
 
-        ideiaRepository.save(novaIdeia(5L, autor, "Sistema de Feedback Automatizado",
+        ideiaRepository.save(novaIdeia("5", autor, "Sistema de Feedback Automatizado",
                 "Coleta automática de feedback pós-viagem com análise de sentimento.",
                 StatusIdeia.APROVADA, "Passageiros", false,
                 Nivel.ALTO, Nivel.MEDIO, Prioridade.ALTA, LocalDate.of(2026, 6, 20),
                 new BigDecimal("85000.00"), new BigDecimal("289000.00")));
 
-        ideiaRepository.save(novaIdeia(6L, autor, "Substituição de Frota por Veículos Elétricos",
+        ideiaRepository.save(novaIdeia("6", autor, "Substituição de Frota por Veículos Elétricos",
                 "Eletrificação gradual da frota urbana.",
                 StatusIdeia.REJEITADA, "Logística", false,
                 Nivel.ALTO, Nivel.ALTO, Prioridade.BAIXA, null,
@@ -105,7 +105,7 @@ public class DataSeeder implements CommandLineRunner {
         log.info("Ideias criadas");
     }
 
-    private Ideia novaIdeia(Long id, Usuario autor, String titulo, String descricao, StatusIdeia status, String area,
+    private Ideia novaIdeia(String id, Usuario autor, String titulo, String descricao, StatusIdeia status, String area,
             boolean strategicBonus, Nivel impacto, Nivel esforco, Prioridade prioridade, LocalDate prazo,
             BigDecimal investimento, BigDecimal retorno) {
         Ideia ideia = new Ideia();
