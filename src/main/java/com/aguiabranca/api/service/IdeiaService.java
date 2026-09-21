@@ -95,4 +95,12 @@ public class IdeiaService {
 
         return IdeiaResponseDTO.from(ideiaRepository.save(ideia));
     }
+
+    public void deletar(String id) {
+        if (!ideiaRepository.existsById(id)) {
+            throw new RuntimeException("Ideia não encontrada");
+        }
+
+        ideiaRepository.deleteById(id);
+    }
 }

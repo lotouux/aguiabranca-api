@@ -60,6 +60,12 @@ public class IdeiaController {
         return ResponseEntity.ok(ideiaService.atualizar(id, dto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
+        ideiaService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
+
     // --- Marcos ---
 
     @GetMapping("/{id}/marcos")

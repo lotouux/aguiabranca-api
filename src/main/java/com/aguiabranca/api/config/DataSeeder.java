@@ -189,9 +189,9 @@ public class DataSeeder implements CommandLineRunner {
                 StatusIdeia.ENVIADA,
                 "Logística",
                 false,
-                null,
-                null,
-                null,
+                Nivel.ALTO,
+                Nivel.ALTO,
+                Prioridade.MEDIA,
                 null,
                 null,
                 null
