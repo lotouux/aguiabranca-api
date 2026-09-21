@@ -16,7 +16,7 @@ public record IdeiaResponseDTO(
         String area,
         String autor,
         Long autorId,
-        boolean isStrategicBonus,
+        boolean strategicBonus,
         Nivel impacto,
         Nivel esforco,
         Prioridade prioridade,
@@ -24,7 +24,9 @@ public record IdeiaResponseDTO(
         BigDecimal roiEsperado,
         BigDecimal investimento,
         BigDecimal retorno,
-        LocalDate dataSubmissao
+        Integer baseKM,
+        String feedbackGestor,
+        LocalDate data
 ) {
 
     public static IdeiaResponseDTO from(Ideia ideia) {
@@ -44,6 +46,8 @@ public record IdeiaResponseDTO(
                 ideia.getRoiEsperado(),
                 ideia.getInvestimento(),
                 ideia.getRetorno(),
+                ideia.getBaseKM(),
+                ideia.getFeedbackGestor(),
                 ideia.getCriadoEm() != null ? ideia.getCriadoEm().toLocalDate() : null
         );
     }

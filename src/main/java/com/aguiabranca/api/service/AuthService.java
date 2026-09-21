@@ -4,6 +4,7 @@ import com.aguiabranca.api.dto.LoginResponseDTO;
 import com.aguiabranca.api.dto.UsuarioResponseDTO;
 import com.aguiabranca.api.exception.NotFoundException;
 import com.aguiabranca.api.model.Usuario;
+import com.aguiabranca.api.model.enums.TipoPerfil;
 import com.aguiabranca.api.repository.UsuarioRepository;
 import com.aguiabranca.api.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class AuthService {
         }
 
         String token = jwtService.gerarToken(usuario);
-        return new LoginResponseDTO(token, usuario.getNome(), usuario.getPerfil().name());
+        return new LoginResponseDTO(token, usuario.getNome(), mapearPerfil(usuario.getPerfil()));
     }
 
     @Transactional(readOnly = true)
@@ -50,5 +51,13 @@ public class AuthService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
         return UsuarioResponseDTO.from(usuario);
+    }
+
+    private String mapearPerfil(TipoPerfil perfil) {
+        return switch (perfil) {
+            case OPERADOR -> "Operador";
+            case GESTOR -> "Gestor";
+            case LIDERANCA -> "Liderança";
+        };
     }
 }

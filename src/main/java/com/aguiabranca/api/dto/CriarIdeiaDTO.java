@@ -11,5 +11,6 @@ public record CriarIdeiaDTO(
         @NotBlank String area,
         LocalDate prazo,
         BigDecimal investimento,
-        BigDecimal retorno
+        BigDecimal retorno,
+        Integer baseKM
 ) {}

@@ -9,5 +9,6 @@ public record AtualizarIdeiaRequestDTO(
         Prioridade prioridade,
         Nivel impacto,
         Nivel esforco,
-        Boolean isStrategicBonus
+        Boolean isStrategicBonus,
+        String feedbackGestor
 ) {}

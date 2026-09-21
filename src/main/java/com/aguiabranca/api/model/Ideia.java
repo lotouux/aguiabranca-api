@@ -55,6 +55,10 @@ public class Ideia {
 
     private BigDecimal retorno;
 
+    private Integer baseKM;
+
+    private String feedbackGestor;
+
     @CreatedDate
     private LocalDateTime criadoEm;
 

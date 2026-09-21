@@ -6,8 +6,10 @@ com\aguiabranca\api\controller\UsuarioController.class
 com\aguiabranca\api\repository\IdeiaRepository.class
 com\aguiabranca\api\ApiApplication.class
 com\aguiabranca\api\config\DataSeeder.class
+com\aguiabranca\api\service\AuthService$1.class
 com\aguiabranca\api\security\SecurityConfig.class
 com\aguiabranca\api\dto\CampoErroDTO.class
+com\aguiabranca\api\dto\CriarMarcoDTO.class
 com\aguiabranca\api\model\enums\Prioridade.class
 com\aguiabranca\api\dto\ProjetoResponseDTO.class
 com\aguiabranca\api\service\FocoEstrategicoService.class
@@ -17,9 +19,11 @@ com\aguiabranca\api\model\enums\StatusTarefa.class
 com\aguiabranca\api\model\enums\StatusIdeia.class
 com\aguiabranca\api\security\RestAuthenticationEntryPoint.class
 com\aguiabranca\api\dto\ErroResponseDTO.class
+com\aguiabranca\api\repository\MarcoRepository.class
 com\aguiabranca\api\dto\AtualizarUsuarioDTO.class
 com\aguiabranca\api\dto\AttachIdeiasDTO.class
 com\aguiabranca\api\exception\NotFoundException.class
+com\aguiabranca\api\dto\MarcoDTO.class
 com\aguiabranca\api\controller\EstrategiaController.class
 com\aguiabranca\api\controller\IdeiaController.class
 com\aguiabranca\api\security\JwtProperties.class
@@ -49,6 +53,7 @@ com\aguiabranca\api\security\PasswordEncoderConfig.class
 com\aguiabranca\api\service\ProjetoService.class
 com\aguiabranca\api\model\Projeto.class
 com\aguiabranca\api\dto\TarefaDTO.class
+com\aguiabranca\api\service\MarcoService.class
 com\aguiabranca\api\dto\FocoEstrategicoDTO.class
 com\aguiabranca\api\dto\CriarIdeiaDTO.class
 com\aguiabranca\api\repository\UsuarioRepository.class
@@ -62,6 +67,8 @@ com\aguiabranca\api\dto\AtualizarTarefaRequestDTO.class
 com\aguiabranca\api\security\PerfilAuthorities.class
 com\aguiabranca\api\dto\DashboardResponseDTO.class
 com\aguiabranca\api\model\Tarefa.class
+com\aguiabranca\api\model\Marco.class
+com\aguiabranca\api\dto\AtualizarMarcoDTO.class
 com\aguiabranca\api\dto\CriarUsuarioDTO.class
 com\aguiabranca\api\exception\ConflictException.class
 com\aguiabranca\api\exception\GlobalExceptionHandler.class

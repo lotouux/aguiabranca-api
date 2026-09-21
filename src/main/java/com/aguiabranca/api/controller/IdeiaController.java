@@ -1,10 +1,9 @@
 package com.aguiabranca.api.controller;
 
-import com.aguiabranca.api.dto.AtualizarIdeiaRequestDTO;
-import com.aguiabranca.api.dto.CriarIdeiaDTO;
-import com.aguiabranca.api.dto.IdeiaResponseDTO;
+import com.aguiabranca.api.dto.*;
 import com.aguiabranca.api.security.UsuarioAutenticado;
 import com.aguiabranca.api.service.IdeiaService;
+import com.aguiabranca.api.service.MarcoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +20,7 @@ import java.util.List;
 public class IdeiaController {
 
     private final IdeiaService ideiaService;
+    private final MarcoService marcoService;
 
     @GetMapping
     @PreAuthorize("hasRole('OPERADOR')")
@@ -47,5 +47,28 @@ public class IdeiaController {
     public ResponseEntity<IdeiaResponseDTO> atualizar(@PathVariable Long id,
             @Valid @RequestBody AtualizarIdeiaRequestDTO dto) {
         return ResponseEntity.ok(ideiaService.atualizar(id, dto));
+    }
+
+    // --- Marcos ---
+
+    @GetMapping("/{id}/marcos")
+    @PreAuthorize("hasRole('OPERADOR')")
+    public ResponseEntity<List<MarcoDTO>> listarMarcos(@PathVariable Long id) {
+        return ResponseEntity.ok(marcoService.listar(id));
+    }
+
+    @PostMapping("/{id}/marcos")
+    @PreAuthorize("hasRole('GESTOR')")
+    public ResponseEntity<MarcoDTO> criarMarco(@PathVariable Long id,
+            @Valid @RequestBody CriarMarcoDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(marcoService.criar(id, dto));
+    }
+
+    @PatchMapping("/{id}/marcos/{marcoId}")
+    @PreAuthorize("hasRole('GESTOR')")
+    public ResponseEntity<MarcoDTO> atualizarMarco(@PathVariable Long id,
+            @PathVariable String marcoId,
+            @RequestBody AtualizarMarcoDTO dto) {
+        return ResponseEntity.ok(marcoService.atualizar(id, marcoId, dto));
     }
 }

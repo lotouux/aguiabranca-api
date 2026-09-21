@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/focos-estrategicos")
+@RequestMapping({"/api/focos-estrategicos", "/api/estrategia/focos"})
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('GESTOR')")
 public class EstrategiaController {

@@ -5,7 +5,10 @@ import com.aguiabranca.api.dto.CriarIdeiaDTO;
 import com.aguiabranca.api.dto.IdeiaResponseDTO;
 import com.aguiabranca.api.exception.NotFoundException;
 import com.aguiabranca.api.model.Ideia;
+import com.aguiabranca.api.model.Usuario;
+import com.aguiabranca.api.model.enums.StatusIdeia;
 import com.aguiabranca.api.repository.IdeiaRepository;
+import com.aguiabranca.api.repository.UsuarioRepository;
 import com.aguiabranca.api.security.UsuarioAutenticado;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ import java.util.List;
 public class IdeiaService {
 
     private final IdeiaRepository ideiaRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Transactional(readOnly = true)
     public List<IdeiaResponseDTO> listar(UsuarioAutenticado principal) {
@@ -35,14 +39,47 @@ public class IdeiaService {
     }
 
     public IdeiaResponseDTO criar(CriarIdeiaDTO dto, UsuarioAutenticado principal) {
-        // Mantenha a sua implementação do método criar aqui...
-        return null; 
+        Usuario autor = usuarioRepository.findById(principal.id())
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
+
+        Ideia ideia = new Ideia();
+        ideia.setTitulo(dto.titulo());
+        ideia.setDescricao(dto.descricao());
+        ideia.setArea(dto.area());
+        ideia.setPrazo(dto.prazo());
+        ideia.setInvestimento(dto.investimento());
+        ideia.setRetorno(dto.retorno());
+        ideia.setBaseKM(dto.baseKM());
+        ideia.setAutor(autor);
+        ideia.setStatus(StatusIdeia.ENVIADA);
+        ideia.setStrategicBonus(false);
+
+        return IdeiaResponseDTO.from(ideiaRepository.save(ideia));
     }
 
     public IdeiaResponseDTO atualizar(Long id, AtualizarIdeiaRequestDTO dto) {
         Ideia ideia = ideiaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Ideia não encontrada: " + id));
-        // Mantenha a sua lógica de atualização de campos aqui...
+
+        if (dto.status() != null) {
+            ideia.setStatus(dto.status());
+        }
+        if (dto.prioridade() != null) {
+            ideia.setPrioridade(dto.prioridade());
+        }
+        if (dto.impacto() != null) {
+            ideia.setImpacto(dto.impacto());
+        }
+        if (dto.esforco() != null) {
+            ideia.setEsforco(dto.esforco());
+        }
+        if (dto.isStrategicBonus() != null) {
+            ideia.setStrategicBonus(dto.isStrategicBonus());
+        }
+        if (dto.feedbackGestor() != null) {
+            ideia.setFeedbackGestor(dto.feedbackGestor());
+        }
+
         return IdeiaResponseDTO.from(ideiaRepository.save(ideia));
     }
 }
