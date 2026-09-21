@@ -175,7 +175,7 @@ public class ProjetoService {
         }
     }
 
-    private Usuario referenciaOuNulo(Long usuarioId) {
+    private Usuario referenciaOuNulo(String usuarioId) {
         if (usuarioId == null) {
             return null;
         }

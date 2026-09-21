@@ -34,13 +34,13 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable Long id,
+    public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable String id,
             @RequestBody AtualizarUsuarioDTO dto, @AuthenticationPrincipal UsuarioAutenticado principal) {
         return ResponseEntity.ok(usuarioService.atualizar(id, dto, principal.id()));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id,
+    public ResponseEntity<Void> deletar(@PathVariable String id,
             @AuthenticationPrincipal UsuarioAutenticado principal) {
         usuarioService.deletar(id, principal.id());
         return ResponseEntity.noContent().build();

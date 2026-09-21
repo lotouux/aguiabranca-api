@@ -11,7 +11,7 @@ public record CriarProjetoDTO(
         @NotBlank String descricao,
         @NotBlank String area,
         String observacao,
-        Long responsavelId,
+        String responsavelId,
         LocalDate dataInicio,
         LocalDate dataPrevistaConclusao,
         @PositiveOrZero BigDecimal investimento,

@@ -41,7 +41,7 @@ public class UsuarioService {
         return UsuarioResponseDTO.from(usuarioRepository.save(usuario));
     }
 
-    public UsuarioResponseDTO atualizar(Long id, AtualizarUsuarioDTO dto, Long solicitanteId) {
+    public UsuarioResponseDTO atualizar(String id, AtualizarUsuarioDTO dto, String solicitanteId) {
         Usuario usuario = buscarOuFalhar(id);
 
         if (dto.perfil() != null && dto.perfil() != usuario.getPerfil()) {
@@ -57,7 +57,7 @@ public class UsuarioService {
         return UsuarioResponseDTO.from(usuarioRepository.save(usuario));
     }
 
-    public void deletar(Long id, Long solicitanteId) {
+    public void deletar(String id, String solicitanteId) {
         Usuario usuario = buscarOuFalhar(id);
 
         if (usuario.getId().equals(solicitanteId)) {
@@ -70,7 +70,7 @@ public class UsuarioService {
         usuarioRepository.delete(usuario);
     }
 
-    private void garantirTrocaDePerfilPermitida(Usuario usuario, TipoPerfil perfilDestino, Long solicitanteId) {
+    private void garantirTrocaDePerfilPermitida(Usuario usuario, TipoPerfil perfilDestino, String solicitanteId) {
         if (usuario.getId().equals(solicitanteId)) {
             throw new ConflictException("Você não pode alterar seu próprio perfil.");
         }
@@ -91,7 +91,7 @@ public class UsuarioService {
         }
     }
 
-    private Usuario buscarOuFalhar(Long id) {
+    private Usuario buscarOuFalhar(String id) {
         return usuarioRepository.findById(id).orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
     }
 }

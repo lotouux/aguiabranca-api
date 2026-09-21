@@ -47,7 +47,7 @@ public class AuthService {
     }
 
     @Transactional(readOnly = true)
-    public UsuarioResponseDTO me(Long usuarioId) {
+    public UsuarioResponseDTO me(String usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
         return UsuarioResponseDTO.from(usuario);

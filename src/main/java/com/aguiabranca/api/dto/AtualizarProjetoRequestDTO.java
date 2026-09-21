@@ -11,7 +11,7 @@ public record AtualizarProjetoRequestDTO(
         String descricao,
         String area,
         String observacao,
-        Long responsavelId,
+        String responsavelId,
         StatusProjeto status,
         LocalDate dataInicio,
         LocalDate dataPrevistaConclusao,

@@ -83,7 +83,7 @@ public class JwtService {
         }
 
         return new UsuarioAutenticado(
-                Long.valueOf(claims.getSubject()),
+                claims.getSubject(),
                 claims.get(CLAIM_MATRICULA, String.class),
                 claims.get(CLAIM_NOME, String.class),
                 TipoPerfil.valueOf(perfil));
