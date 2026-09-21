@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping({"/api/focos-estrategicos", "/api/estrategia/focos"})
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('LIDERANCA')")
+
 public class EstrategiaController {
     private final FocoEstrategicoService focoEstrategicoService;
 
@@ -25,6 +25,7 @@ public class EstrategiaController {
         return ResponseEntity.ok(focoEstrategicoService.listar());
     }
 
+    @PreAuthorize("hasRole('LIDERANCA')")
     @PostMapping
     public ResponseEntity<FocoEstrategicoDTO> criar(@Valid @RequestBody CriarFocoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(focoEstrategicoService.criar(dto));
@@ -35,11 +36,13 @@ public class EstrategiaController {
         return ResponseEntity.ok(focoEstrategicoService.atualizar(id, dto));
     }
 
+    @PreAuthorize("hasRole('LIDERANCA')")
     @PatchMapping("/{id}/ativar")
     public ResponseEntity<FocoEstrategicoDTO> ativar(@PathVariable String id) {
         return ResponseEntity.ok(focoEstrategicoService.ativar(id));
     }
 
+    @PreAuthorize("hasRole('LIDERANCA')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable String id) {
         focoEstrategicoService.deletar(id);
