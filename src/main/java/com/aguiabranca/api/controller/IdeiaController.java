@@ -36,11 +36,12 @@ public class IdeiaController {
     }
 
     @GetMapping("/minhas")
+    @PreAuthorize("hasRole('OPERADOR')")
     public ResponseEntity<List<IdeiaResponseDTO>> minhasIdeias(
             @AuthenticationPrincipal UsuarioAutenticado usuario
     ) {
         return ResponseEntity.ok(
-                ideiaService.listarPorMatricula(usuario.matricula())
+                ideiaService.listarMinhasIdeias(usuario.id())
         );
     }
 

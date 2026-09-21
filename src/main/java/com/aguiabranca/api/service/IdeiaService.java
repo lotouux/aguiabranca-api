@@ -39,8 +39,9 @@ public class IdeiaService {
         return IdeiaResponseDTO.from(ideia);
     }
 
-    public List<IdeiaResponseDTO> listarPorMatricula(String matricula) {
-        return ideiaRepository.findByAutorMatricula(matricula)
+    @Transactional(readOnly = true)
+    public List<IdeiaResponseDTO> listarMinhasIdeias(String autorId) {
+        return ideiaRepository.findByAutorId(autorId)
                 .stream()
                 .map(IdeiaResponseDTO::from)
                 .toList();
