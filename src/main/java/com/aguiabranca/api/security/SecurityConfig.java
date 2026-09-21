@@ -2,7 +2,6 @@ package com.aguiabranca.api.security;
 
 import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,9 +22,6 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Value("${spring.h2.console.enabled:false}")
-    private boolean h2ConsoleEnabled;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter,
             RestAuthenticationEntryPoint authenticationEntryPoint, RestAccessDeniedHandler accessDeniedHandler,
@@ -35,21 +31,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // The H2 console renders in an iframe; the default X-Frame-Options: DENY blanks
-                // it. Only loosened when the console is actually enabled (dev profile) - the
-                // default/prod API has no reason to allow same-origin framing at all.
-                .headers(headers -> {
-                    if (h2ConsoleEnabled) {
-                        headers.frameOptions(frame -> frame.sameOrigin());
-                    }
-                })
                 .authorizeHttpRequests(auth -> {
                     // The internal forward to /error on an unauthenticated request re-enters the
                     // chain as dispatcher type ERROR; without this it becomes a second 403/401.
                     auth.dispatcherTypeMatchers(DispatcherType.ERROR).permitAll();
-                    if (h2ConsoleEnabled) {
-                        auth.requestMatchers(PathRequest.toH2Console()).permitAll();
-                    }
                     auth.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                     auth.anyRequest().authenticated();
                 })
