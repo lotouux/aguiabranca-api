@@ -23,7 +23,6 @@ public class IdeiaController {
     private final MarcoService marcoService;
 
     @GetMapping
-    @PreAuthorize("hasRole('OPERADOR')")
     public ResponseEntity<List<IdeiaResponseDTO>> listar(@AuthenticationPrincipal UsuarioAutenticado principal) {
         return ResponseEntity.ok(ideiaService.listar(principal));
     }
