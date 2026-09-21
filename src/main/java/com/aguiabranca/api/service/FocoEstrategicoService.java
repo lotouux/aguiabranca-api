@@ -34,7 +34,7 @@ public class FocoEstrategicoService {
         return toDTO(focoRepository.save(foco));
     }
 
-    public FocoEstrategicoDTO atualizar(Long id, AtualizarFocoDTO dto) {
+    public FocoEstrategicoDTO atualizar(String id, AtualizarFocoDTO dto) {
         FocoEstrategico foco = buscarOuFalhar(id);
         foco.setMes(dto.mes());
         foco.setTitulo(dto.titulo());
@@ -43,19 +43,19 @@ public class FocoEstrategicoService {
         return toDTO(focoRepository.save(foco));
     }
 
-    public FocoEstrategicoDTO ativar(Long id) {
+    public FocoEstrategicoDTO ativar(String id) {
         buscarOuFalhar(id);
         focoRepository.desativarTodos();
         focoRepository.ativarPorId(id);
         return toDTO(buscarOuFalhar(id));
     }
 
-    public void deletar(Long id) {
+    public void deletar(String id) {
         buscarOuFalhar(id);
         focoRepository.deleteById(id);
     }
 
-    private FocoEstrategico buscarOuFalhar(Long id) {
+    private FocoEstrategico buscarOuFalhar(String id) {
         return focoRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Foco estratégico não encontrado."));
     }

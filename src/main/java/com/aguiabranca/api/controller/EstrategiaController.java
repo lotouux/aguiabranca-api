@@ -16,9 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping({"/api/focos-estrategicos", "/api/estrategia/focos"})
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('GESTOR')")
+@PreAuthorize("hasRole('LIDERANCA')")
 public class EstrategiaController {
-
     private final FocoEstrategicoService focoEstrategicoService;
 
     @GetMapping
@@ -32,17 +31,17 @@ public class EstrategiaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FocoEstrategicoDTO> atualizar(@PathVariable Long id, @Valid @RequestBody AtualizarFocoDTO dto) {
+    public ResponseEntity<FocoEstrategicoDTO> atualizar(@PathVariable String id, @Valid @RequestBody AtualizarFocoDTO dto) {
         return ResponseEntity.ok(focoEstrategicoService.atualizar(id, dto));
     }
 
     @PatchMapping("/{id}/ativar")
-    public ResponseEntity<FocoEstrategicoDTO> ativar(@PathVariable Long id) {
+    public ResponseEntity<FocoEstrategicoDTO> ativar(@PathVariable String id) {
         return ResponseEntity.ok(focoEstrategicoService.ativar(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
         focoEstrategicoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
