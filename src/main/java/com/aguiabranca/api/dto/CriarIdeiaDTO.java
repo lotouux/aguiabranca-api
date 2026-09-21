@@ -10,6 +10,8 @@ public record CriarIdeiaDTO(
         @NotBlank String descricao,
         @NotBlank String area,
         LocalDate prazo,
+        @NotBlank String impacto,
+        @NotBlank String esforco,
         BigDecimal investimento,
         BigDecimal retorno,
         Integer baseKM

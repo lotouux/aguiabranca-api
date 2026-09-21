@@ -6,6 +6,7 @@ import com.aguiabranca.api.dto.IdeiaResponseDTO;
 import com.aguiabranca.api.exception.NotFoundException;
 import com.aguiabranca.api.model.Ideia;
 import com.aguiabranca.api.model.Usuario;
+import com.aguiabranca.api.model.enums.Nivel;
 import com.aguiabranca.api.model.enums.StatusIdeia;
 import com.aguiabranca.api.repository.IdeiaRepository;
 import com.aguiabranca.api.repository.UsuarioRepository;
@@ -47,6 +48,8 @@ public class IdeiaService {
         ideia.setDescricao(dto.descricao());
         ideia.setArea(dto.area());
         ideia.setPrazo(dto.prazo());
+        ideia.setEsforco(Nivel.valueOf(dto.esforco().toUpperCase()));
+        ideia.setImpacto(Nivel.valueOf(dto.impacto().toUpperCase()));
         ideia.setInvestimento(dto.investimento());
         ideia.setRetorno(dto.retorno());
         ideia.setBaseKM(dto.baseKM());
