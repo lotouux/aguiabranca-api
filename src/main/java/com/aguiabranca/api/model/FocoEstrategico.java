@@ -1,11 +1,12 @@
 package com.aguiabranca.api.model;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Entity
+@Document(collection = "focos_estrategicos")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,9 +16,8 @@ import java.util.List;
 public class FocoEstrategico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @EqualsAndHashCode.Include
-    private String id;
+    private Long id;
 
     private String mes;
 
@@ -25,7 +25,6 @@ public class FocoEstrategico {
 
     private String descricao;
 
-    @ElementCollection
     private List<String> areasPotenciais;
 
     private boolean ativo;

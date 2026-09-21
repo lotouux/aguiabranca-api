@@ -6,7 +6,7 @@ import com.aguiabranca.api.model.enums.StatusTarefa;
 import java.time.LocalDate;
 
 public record TarefaDTO(
-        Integer id,
+        Long id,
         String titulo,
         StatusTarefa status,
         LocalDate dataConclusao

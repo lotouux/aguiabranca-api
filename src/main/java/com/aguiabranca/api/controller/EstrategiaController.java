@@ -14,41 +14,36 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/estrategia/focos")
+@RequestMapping("/api/focos-estrategicos")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('GESTOR')")
 public class EstrategiaController {
 
-    private final FocoEstrategicoService service;
+    private final FocoEstrategicoService focoEstrategicoService;
 
     @GetMapping
-    @PreAuthorize("hasRole('OPERADOR')")
     public ResponseEntity<List<FocoEstrategicoDTO>> listar() {
-        return ResponseEntity.ok(service.listar());
+        return ResponseEntity.ok(focoEstrategicoService.listar());
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('LIDERANCA')")
     public ResponseEntity<FocoEstrategicoDTO> criar(@Valid @RequestBody CriarFocoDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(focoEstrategicoService.criar(dto));
     }
 
-    @PatchMapping("/{id}")
-    @PreAuthorize("hasRole('LIDERANCA')")
-    public ResponseEntity<FocoEstrategicoDTO> atualizar(@PathVariable String id,
-            @Valid @RequestBody AtualizarFocoDTO dto) {
-        return ResponseEntity.ok(service.atualizar(id, dto));
+    @PutMapping("/{id}")
+    public ResponseEntity<FocoEstrategicoDTO> atualizar(@PathVariable Long id, @Valid @RequestBody AtualizarFocoDTO dto) {
+        return ResponseEntity.ok(focoEstrategicoService.atualizar(id, dto));
     }
 
     @PatchMapping("/{id}/ativar")
-    @PreAuthorize("hasRole('LIDERANCA')")
-    public ResponseEntity<FocoEstrategicoDTO> ativar(@PathVariable String id) {
-        return ResponseEntity.ok(service.ativar(id));
+    public ResponseEntity<FocoEstrategicoDTO> ativar(@PathVariable Long id) {
+        return ResponseEntity.ok(focoEstrategicoService.ativar(id));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('LIDERANCA')")
-    public ResponseEntity<Void> deletar(@PathVariable String id) {
-        service.deletar(id);
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        focoEstrategicoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

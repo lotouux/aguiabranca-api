@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record ProjetoResponseDTO(
-        String id,
+        Long id,
         String titulo,
         String descricao,
         String area,
@@ -23,7 +23,7 @@ public record ProjetoResponseDTO(
         BigDecimal economiaAnualRealizada,
         Integer horasEconomizadasMes,
         int progresso,
-        List<String> ideiaIds,
+        List<Long> ideiaIds,
         List<TarefaDTO> tarefas
 ) {
 

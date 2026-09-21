@@ -1,66 +1,67 @@
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/ApiApplication.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/config/ClockConfig.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/config/DataSeeder.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/controller/AuthController.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/controller/DashboardController.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/controller/EstrategiaController.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/controller/IdeiaController.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/controller/ProjetoController.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/controller/UsuarioController.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/AttachIdeiasDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/AtualizarFocoDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/AtualizarIdeiaRequestDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/AtualizarProjetoRequestDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/AtualizarTarefaRequestDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/AtualizarUsuarioDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/CampoErroDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/CriarFocoDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/CriarIdeiaDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/CriarProjetoDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/CriarTarefaDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/CriarUsuarioDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/DashboardResponseDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/ErroResponseDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/FocoEstrategicoDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/IdeiaResponseDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/LoginRequestDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/LoginResponseDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/ProjetoResponseDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/TarefaDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/dto/UsuarioResponseDTO.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/exception/ConflictException.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/exception/GlobalExceptionHandler.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/exception/NotFoundException.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/FocoEstrategico.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/Ideia.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/Projeto.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/Tarefa.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/Usuario.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/enums/Nivel.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/enums/Prioridade.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/enums/StatusIdeia.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/enums/StatusProjeto.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/enums/StatusTarefa.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/model/enums/TipoPerfil.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/repository/AgregadoProjetosProjection.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/repository/FocoEstrategicoRepository.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/repository/IdeiaRepository.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/repository/ProjetoRepository.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/repository/TarefaRepository.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/repository/UsuarioRepository.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/JwtAuthenticationFilter.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/JwtProperties.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/JwtService.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/PasswordEncoderConfig.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/PerfilAuthorities.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/RestAccessDeniedHandler.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/RestAuthenticationEntryPoint.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/SecurityConfig.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/security/UsuarioAutenticado.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/service/AuthService.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/service/DashboardService.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/service/FocoEstrategicoService.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/service/IdeiaService.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/service/ProjetoService.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/service/TarefaService.java
-/Users/lucassilveira/Projects/fiap/aguiabranca-api/src/main/java/com/aguiabranca/api/service/UsuarioService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\ApiApplication.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\config\ClockConfig.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\config\DataSeeder.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\AuthController.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\DashboardController.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\EstrategiaController.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\IdeiaController.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\ProjetoController.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\controller\UsuarioController.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AttachIdeiasDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarFocoDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarIdeiaRequestDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarProjetoRequestDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarTarefaRequestDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\AtualizarUsuarioDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\CampoErroDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\CriarFocoDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\CriarIdeiaDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\CriarProjetoDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\CriarTarefaDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\CriarUsuarioDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\DashboardResponseDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\ErroResponseDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\FocoEstrategicoDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\IdeiaResponseDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\LoginRequestDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\LoginResponseDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\ProjetoResponseDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\TarefaDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\dto\UsuarioResponseDTO.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\exception\ConflictException.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\exception\GlobalExceptionHandler.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\exception\NotFoundException.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\enums\Nivel.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\enums\Prioridade.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\enums\StatusIdeia.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\enums\StatusProjeto.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\enums\StatusTarefa.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\enums\TipoPerfil.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\FocoEstrategico.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\Ideia.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\Projeto.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\Tarefa.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\model\Usuario.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\repository\AgregadoProjetosProjection.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\repository\FocoEstrategicoRepository.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\repository\IdeiaRepository.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\repository\ProjetoRepository.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\repository\TarefaRepository.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\repository\UsuarioRepository.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\JwtAuthenticationFilter.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\JwtProperties.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\JwtService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\PasswordEncoderConfig.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\PerfilAuthorities.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\RestAccessDeniedHandler.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\RestAuthenticationEntryPoint.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\SecurityConfig.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\security\UsuarioAutenticado.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\service\AuthService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\service\DashboardService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\service\FocoEstrategicoService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\service\IdeiaService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\service\ProjetoService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\service\TarefaService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\service\UsuarioService.java
+C:\Users\Ana Caroline\OneDrive\Área de Trabalho\Challenge_AguiaBranca_API\aguiabranca-api\src\main\java\com\aguiabranca\api\util\CalculadoraRoi.java

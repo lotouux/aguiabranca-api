@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record IdeiaResponseDTO(
-        String id,
+        Long id,
         String titulo,
         String descricao,
         StatusIdeia status,
@@ -34,8 +34,8 @@ public record IdeiaResponseDTO(
                 ideia.getDescricao(),
                 ideia.getStatus(),
                 ideia.getArea(),
-                ideia.getAutor().getNome(),
-                ideia.getAutor().getId(),
+                ideia.getAutor() != null ? ideia.getAutor().getNome() : null,
+                ideia.getAutor() != null ? ideia.getAutor().getId() : null,
                 ideia.isStrategicBonus(),
                 ideia.getImpacto(),
                 ideia.getEsforco(),

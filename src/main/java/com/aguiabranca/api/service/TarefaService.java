@@ -27,7 +27,7 @@ public class TarefaService {
     private final TarefaRepository tarefaRepository;
     private final Clock clock;
 
-    public TarefaDTO criar(String projetoId, CriarTarefaDTO dto) {
+    public TarefaDTO criar(Long projetoId, CriarTarefaDTO dto) {
         Projeto projeto = buscarProjeto(projetoId);
         garantirProjetoAberto(projeto);
         Tarefa tarefa = new Tarefa();
@@ -37,7 +37,7 @@ public class TarefaService {
         return TarefaDTO.from(tarefaRepository.save(tarefa));
     }
 
-    public TarefaDTO atualizar(String projetoId, Integer tarefaId, AtualizarTarefaRequestDTO dto) {
+    public TarefaDTO atualizar(Long projetoId, Long tarefaId, AtualizarTarefaRequestDTO dto) {
         Tarefa tarefa = carregarTarefaDo(projetoId, tarefaId);
         garantirProjetoAberto(tarefa.getProjeto());
         tarefa.setStatus(dto.status());
@@ -45,34 +45,24 @@ public class TarefaService {
         return TarefaDTO.from(tarefaRepository.save(tarefa));
     }
 
-    public void excluir(String projetoId, Integer tarefaId) {
+    public void excluir(Long projetoId, Long tarefaId) {
         Tarefa tarefa = carregarTarefaDo(projetoId, tarefaId);
         garantirProjetoAberto(tarefa.getProjeto());
         tarefaRepository.delete(tarefa);
     }
 
-    private Projeto buscarProjeto(String projetoId) {
+    private Projeto buscarProjeto(Long projetoId) {
         return projetoRepository.findById(projetoId)
                 .orElseThrow(() -> new NotFoundException("Projeto não encontrado."));
     }
 
-    /**
-     * Mirrors {@code ProjetoService}'s terminal-status guard: a {@code CONCLUIDO}/{@code
-     * CANCELADO} project is a frozen historical record, so its tasks - and therefore its derived
-     * {@code progresso} - must not change either.
-     */
     private void garantirProjetoAberto(Projeto projeto) {
         if (projeto.getStatus() == StatusProjeto.CONCLUIDO || projeto.getStatus() == StatusProjeto.CANCELADO) {
             throw new ConflictException("Projeto encerrado não permite alterações em tarefas.");
         }
     }
 
-    /**
-     * Scoped lookup - without checking that the task actually belongs to {@code projetoId}, a
-     * {@code PATCH /api/projetos/{A}/tarefas/{taskOfB}} would succeed and edit another project's
-     * task.
-     */
-    private Tarefa carregarTarefaDo(String projetoId, Integer tarefaId) {
+    private Tarefa carregarTarefaDo(Long projetoId, Long tarefaId) {
         Tarefa tarefa = tarefaRepository.findById(tarefaId)
                 .orElseThrow(() -> new NotFoundException("Tarefa não encontrada."));
         if (!tarefa.getProjeto().getId().equals(projetoId)) {

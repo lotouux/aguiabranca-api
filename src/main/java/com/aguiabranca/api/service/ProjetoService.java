@@ -36,7 +36,7 @@ public class ProjetoService {
     }
 
     @Transactional(readOnly = true)
-    public ProjetoResponseDTO buscarPorId(String id) {
+    public ProjetoResponseDTO buscarPorId(Long id) {
         return ProjetoResponseDTO.from(buscarOuFalhar(id));
     }
 
@@ -57,7 +57,7 @@ public class ProjetoService {
         return ProjetoResponseDTO.from(projetoRepository.save(projeto));
     }
 
-    public ProjetoResponseDTO atualizar(String id, AtualizarProjetoRequestDTO dto) {
+    public ProjetoResponseDTO atualizar(Long id, AtualizarProjetoRequestDTO dto) {
         Projeto projeto = buscarOuFalhar(id);
 
         if (dto.titulo() != null) {
@@ -99,12 +99,7 @@ public class ProjetoService {
         return ProjetoResponseDTO.from(projetoRepository.save(projeto));
     }
 
-    /**
-     * Deletion is restricted to {@code PLANEJADO}: a {@code CONCLUIDO} project is the source of
-     * truth for every historical Dashboard figure, so deleting it would silently rewrite them.
-     * The close-out path for an unwanted project is {@code CANCELADO} instead.
-     */
-    public void excluir(String id) {
+    public void excluir(Long id) {
         Projeto projeto = buscarOuFalhar(id);
         if (projeto.getStatus() != StatusProjeto.PLANEJADO) {
             throw new ConflictException("Somente projetos em planejamento podem ser excluídos.");
@@ -113,18 +108,12 @@ public class ProjetoService {
         projetoRepository.deleteById(id);
     }
 
-    /**
-     * Atomic batch attach: every id is validated before any mutation happens, so one invalid
-     * entry attaches none of them. Re-attaching an idea already on this project is a no-op
-     * (idempotent). An idea already attached elsewhere is never {@code APROVADA} any more (it is
-     * {@code EM_EXECUCAO}), so the "not APROVADA" check below also rejects that case.
-     */
-    public ProjetoResponseDTO vincularIdeias(String projetoId, List<String> ideiaIds) {
+    public ProjetoResponseDTO vincularIdeias(Long projetoId, List<Long> ideiaIds) {
         Projeto projeto = buscarOuFalhar(projetoId);
         garantirProjetoNaoEncerrado(projeto);
 
         List<Ideia> ideias = new ArrayList<>();
-        for (String ideiaId : ideiaIds) {
+        for (Long ideiaId : ideiaIds) {
             Ideia ideia = ideiaRepository.findById(ideiaId)
                     .orElseThrow(() -> new NotFoundException("Ideia não encontrada: " + ideiaId));
             if (!projeto.getIdeias().contains(ideia) && ideia.getStatus() != StatusIdeia.APROVADA) {
@@ -141,7 +130,7 @@ public class ProjetoService {
         return ProjetoResponseDTO.from(projetoRepository.save(projeto));
     }
 
-    public void desvincularIdeia(String projetoId, String ideiaId) {
+    public void desvincularIdeia(Long projetoId, Long ideiaId) {
         Projeto projeto = buscarOuFalhar(projetoId);
         garantirProjetoNaoEncerrado(projeto);
         Ideia ideia = ideiaRepository.findById(ideiaId)
@@ -156,12 +145,6 @@ public class ProjetoService {
         projetoRepository.save(projeto);
     }
 
-    /**
-     * {@code CONCLUIDO}/{@code CANCELADO} are terminal - once reached, no further status change
-     * is permitted. Without this, a {@code CONCLUIDO} project could be patched back to {@code
-     * PLANEJADO} and then deleted, silently rewriting historical Dashboard figures despite the
-     * {@code excluir()} guard below.
-     */
     private void aplicarTransicaoStatus(Projeto projeto, StatusProjeto destino) {
         garantirProjetoNaoEncerrado(projeto);
         if (destino == StatusProjeto.CONCLUIDO) {
@@ -192,23 +175,15 @@ public class ProjetoService {
         }
     }
 
-    /**
-     * {@code getReferenceById} returns an uninitialized proxy with no query - existence must be
-     * checked explicitly here, otherwise an invalid id only fails later when something (e.g.
-     * {@code ProjetoResponseDTO.from}) dereferences the proxy, surfacing as an uncaught {@code
-     * EntityNotFoundException} (500) instead of a clean 404.
-     */
     private Usuario referenciaOuNulo(Long usuarioId) {
         if (usuarioId == null) {
             return null;
         }
-        if (!usuarioRepository.existsById(usuarioId)) {
-            throw new NotFoundException("Usuário responsável não encontrado: " + usuarioId);
-        }
-        return usuarioRepository.getReferenceById(usuarioId);
+        return usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new NotFoundException("Usuário responsável não encontrado: " + usuarioId));
     }
 
-    private Projeto buscarOuFalhar(String id) {
+    private Projeto buscarOuFalhar(Long id) {
         return projetoRepository.findById(id).orElseThrow(() -> new NotFoundException("Projeto não encontrado."));
     }
 }

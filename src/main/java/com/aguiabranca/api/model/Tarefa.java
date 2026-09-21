@@ -1,12 +1,14 @@
 package com.aguiabranca.api.model;
 
 import com.aguiabranca.api.model.enums.StatusTarefa;
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
-@Entity
+@Document(collection = "tarefas")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,19 +18,16 @@ import java.time.LocalDate;
 public class Tarefa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Integer id;
+    private Long id; // Alterado de Integer para String para compatibilidade com o ObjectId do Mongo
 
     private String titulo;
 
-    @Enumerated(EnumType.STRING)
     private StatusTarefa status;
 
     private LocalDate dataConclusao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "projeto_id")
+    @DBRef
     @ToString.Exclude
     private Projeto projeto;
 }

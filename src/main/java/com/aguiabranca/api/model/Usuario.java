@@ -1,10 +1,12 @@
 package com.aguiabranca.api.model;
 
 import com.aguiabranca.api.model.enums.TipoPerfil;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.index.Indexed;
 import lombok.*;
 
-@Entity
+@Document(collection = "usuarios")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,18 +16,18 @@ import lombok.*;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @EqualsAndHashCode.Include
     private Long id;
 
     private String nome;
 
-    @Column(unique = true)
+    @Indexed(unique = true)
     private String matricula;
 
     @ToString.Exclude
     private String senha;
 
-    @Enumerated(EnumType.STRING)
+    
     private TipoPerfil perfil; // OPERADOR, GESTOR, LIDERANCA
 }

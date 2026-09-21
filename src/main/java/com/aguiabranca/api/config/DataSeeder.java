@@ -42,9 +42,9 @@ public class DataSeeder implements CommandLineRunner {
             return;
         }
         String senha = passwordEncoder.encode("123");
-        usuarioRepository.save(new Usuario(null, "Pedro Miranda", "OP001", senha, TipoPerfil.OPERADOR));
-        usuarioRepository.save(new Usuario(null, "Leonardo Martin", "GS001", senha, TipoPerfil.GESTOR));
-        usuarioRepository.save(new Usuario(null, "Beatriz Camargo", "LD001", senha, TipoPerfil.LIDERANCA));
+        usuarioRepository.save(new Usuario(1L, "Pedro Miranda", "OP001", senha, TipoPerfil.OPERADOR));
+        usuarioRepository.save(new Usuario(2L, "Leonardo Martin", "GS001", senha, TipoPerfil.GESTOR));
+        usuarioRepository.save(new Usuario(3L, "Beatriz Camargo", "LD001", senha, TipoPerfil.LIDERANCA));
         log.info("Usuários criados");
     }
 
@@ -52,11 +52,11 @@ public class DataSeeder implements CommandLineRunner {
         if (focoRepository.count() > 0) {
             return;
         }
-        focoRepository.save(new FocoEstrategico(null, "Jun", "Redução de Emissões",
+        focoRepository.save(new FocoEstrategico(1L, "Jun", "Redução de Emissões",
                 "Foco em ideias que reduzam a pegada de carbono da frota em 15%.",
                 List.of("Logística", "Operação"),
                 true));
-        focoRepository.save(new FocoEstrategico(null, "Jul", "Eficiência em Logística",
+        focoRepository.save(new FocoEstrategico(2L, "Jul", "Eficiência em Logística",
                 "Otimizar processos de carga e descarga para reduzir tempo em 20%.",
                 List.of("Logística"), false));
         log.info("Focos Estratégicos criados");
@@ -68,35 +68,35 @@ public class DataSeeder implements CommandLineRunner {
         }
         Usuario autor = usuarioRepository.findByMatricula("OP001").orElseThrow();
 
-        ideiaRepository.save(novaIdeia(autor, "Sistema de Roteirização Inteligente",
+        ideiaRepository.save(novaIdeia(1L, autor, "Sistema de Roteirização Inteligente",
                 "Otimização de rotas via IA.", StatusIdeia.CONCLUIDA, "Logística", false,
                 Nivel.ALTO, Nivel.ALTO, Prioridade.ALTA, LocalDate.of(2026, 6, 29),
                 new BigDecimal("150000.00"), new BigDecimal("450000.00")));
 
-        ideiaRepository.save(novaIdeia(autor, "App de Check-in Rápido",
+        ideiaRepository.save(novaIdeia(2L, autor, "App de Check-in Rápido",
                 "Implementar IA para otimizar rotas de entregas, reduzindo tempo e combustível.",
                 StatusIdeia.EM_EXECUCAO, "Logística", true,
                 Nivel.ALTO, Nivel.MEDIO, Prioridade.ALTA, LocalDate.of(2026, 7, 5),
                 new BigDecimal("150000.00"), new BigDecimal("420000.00")));
 
-        ideiaRepository.save(novaIdeia(autor, "Programa de Fidelidade B2B",
+        ideiaRepository.save(novaIdeia(3L, autor, "Programa de Fidelidade B2B",
                 "Benefícios para clientes de carga regulares.",
                 StatusIdeia.EM_EXECUCAO, "Comércio", false,
                 Nivel.MEDIO, Nivel.BAIXO, Prioridade.MEDIA, LocalDate.of(2027, 12, 30),
                 null, null));
 
-        ideiaRepository.save(novaIdeia(autor, "Monitoramento de Pneus IoT",
+        ideiaRepository.save(novaIdeia(4L, autor, "Monitoramento de Pneus IoT",
                 "Sensores para monitorar pressão e temperatura dos pneus em tempo real.",
                 StatusIdeia.ENVIADA, "Logística", false,
                 null, null, null, null, null, null));
 
-        ideiaRepository.save(novaIdeia(autor, "Sistema de Feedback Automatizado",
+        ideiaRepository.save(novaIdeia(5L, autor, "Sistema de Feedback Automatizado",
                 "Coleta automática de feedback pós-viagem com análise de sentimento.",
                 StatusIdeia.APROVADA, "Passageiros", false,
                 Nivel.ALTO, Nivel.MEDIO, Prioridade.ALTA, LocalDate.of(2026, 6, 20),
                 new BigDecimal("85000.00"), new BigDecimal("289000.00")));
 
-        ideiaRepository.save(novaIdeia(autor, "Substituição de Frota por Veículos Elétricos",
+        ideiaRepository.save(novaIdeia(6L, autor, "Substituição de Frota por Veículos Elétricos",
                 "Eletrificação gradual da frota urbana.",
                 StatusIdeia.REJEITADA, "Logística", false,
                 Nivel.ALTO, Nivel.ALTO, Prioridade.BAIXA, null,
@@ -105,10 +105,11 @@ public class DataSeeder implements CommandLineRunner {
         log.info("Ideias criadas");
     }
 
-    private Ideia novaIdeia(Usuario autor, String titulo, String descricao, StatusIdeia status, String area,
+    private Ideia novaIdeia(Long id, Usuario autor, String titulo, String descricao, StatusIdeia status, String area,
             boolean strategicBonus, Nivel impacto, Nivel esforco, Prioridade prioridade, LocalDate prazo,
             BigDecimal investimento, BigDecimal retorno) {
         Ideia ideia = new Ideia();
+        ideia.setId(id);
         ideia.setAutor(autor);
         ideia.setTitulo(titulo);
         ideia.setDescricao(descricao);
@@ -132,49 +133,50 @@ public class DataSeeder implements CommandLineRunner {
         Map<String, Ideia> ideiasPorTitulo = ideiaRepository.findAll().stream()
                 .collect(Collectors.toMap(Ideia::getTitulo, Function.identity()));
 
-        Projeto roteirizacao = novoProjeto("Plataforma de Roteirização",
+        Projeto roteirizacao = novoProjeto(1L, "Plataforma de Roteirização",
                 "Roteirização inteligente das rotas de entrega.", "Logística", responsavel,
                 StatusProjeto.CONCLUIDO, LocalDate.of(2026, 1, 5), LocalDate.of(2026, 6, 15),
                 new BigDecimal("100000.00"), new BigDecimal("400000.00"), new BigDecimal("350000.00"), 120);
         roteirizacao.getIdeias().add(ideiasPorTitulo.get("Sistema de Roteirização Inteligente"));
         roteirizacao.setTarefas(List.of(
-                novaTarefa("Análise de Requisitos", StatusTarefa.CONCLUIDA, LocalDate.of(2026, 1, 20), roteirizacao),
-                novaTarefa("MVP desenvolvido", StatusTarefa.CONCLUIDA, LocalDate.of(2026, 3, 1), roteirizacao),
-                novaTarefa("Testes piloto", StatusTarefa.CONCLUIDA, LocalDate.of(2026, 4, 15), roteirizacao),
-                novaTarefa("Rollout completo", StatusTarefa.CONCLUIDA, LocalDate.of(2026, 6, 10), roteirizacao)));
+                novaTarefa(1L, "Análise de Requisitos", StatusTarefa.CONCLUIDA, LocalDate.of(2026, 1, 20), roteirizacao),
+                novaTarefa(2L, "MVP desenvolvido", StatusTarefa.CONCLUIDA, LocalDate.of(2026, 3, 1), roteirizacao),
+                novaTarefa(3L, "Testes piloto", StatusTarefa.CONCLUIDA, LocalDate.of(2026, 4, 15), roteirizacao),
+                novaTarefa(4L, "Rollout completo", StatusTarefa.CONCLUIDA, LocalDate.of(2026, 6, 10), roteirizacao)));
         projetoRepository.save(roteirizacao);
 
-        Projeto checkin = novoProjeto("Check-in Digital",
+        Projeto checkin = novoProjeto(2L, "Check-in Digital",
                 "App de check-in rápido para reduzir tempo de espera.", "Logística", responsavel,
                 StatusProjeto.EM_ANDAMENTO, LocalDate.of(2026, 2, 1), LocalDate.of(2026, 8, 1),
                 new BigDecimal("200000.00"), new BigDecimal("500000.00"), null, 80);
         checkin.getIdeias().add(ideiasPorTitulo.get("App de Check-in Rápido"));
         checkin.setTarefas(List.of(
-                novaTarefa("Planejamento e levantamento de requisitos", StatusTarefa.CONCLUIDA,
+                novaTarefa(5L, "Planejamento e levantamento de requisitos", StatusTarefa.CONCLUIDA,
                         LocalDate.of(2026, 2, 12), checkin),
-                novaTarefa("Desenvolvimento do backend de rastreamento", StatusTarefa.EM_ANDAMENTO, null, checkin),
-                novaTarefa("Implementação do dashboard mobile", StatusTarefa.PENDENTE, null, checkin),
-                novaTarefa("Testes finais e publicação", StatusTarefa.PENDENTE, null, checkin)));
+                novaTarefa(6L, "Desenvolvimento do backend de rastreamento", StatusTarefa.EM_ANDAMENTO, null, checkin),
+                novaTarefa(7L, "Implementação do dashboard mobile", StatusTarefa.PENDENTE, null, checkin),
+                novaTarefa(8L, "Testes finais e publicação", StatusTarefa.PENDENTE, null, checkin)));
         projetoRepository.save(checkin);
 
-        Projeto fidelidade = novoProjeto("Fidelidade B2B",
+        Projeto fidelidade = novoProjeto(3L, "Fidelidade B2B",
                 "Programa de fidelidade para clientes de carga regulares.", "Comércio", responsavel,
                 StatusProjeto.EM_ANDAMENTO, LocalDate.of(2026, 3, 1), LocalDate.of(2026, 12, 1),
                 new BigDecimal("0.00"), new BigDecimal("50000.00"), null, 0);
         fidelidade.getIdeias().add(ideiasPorTitulo.get("Programa de Fidelidade B2B"));
         fidelidade.setTarefas(List.of(
-                novaTarefa("Definição de regras de pontuação", StatusTarefa.PENDENTE, null, fidelidade),
-                novaTarefa("Integração com sistema de faturamento", StatusTarefa.PENDENTE, null, fidelidade),
-                novaTarefa("Piloto com clientes-chave", StatusTarefa.PENDENTE, null, fidelidade)));
+                novaTarefa(9L, "Definição de regras de pontuação", StatusTarefa.PENDENTE, null, fidelidade),
+                novaTarefa(10L, "Integração com sistema de faturamento", StatusTarefa.PENDENTE, null, fidelidade),
+                novaTarefa(11L, "Piloto com clientes-chave", StatusTarefa.PENDENTE, null, fidelidade)));
         projetoRepository.save(fidelidade);
 
         log.info("Projetos criados");
     }
 
-    private Projeto novoProjeto(String titulo, String descricao, String area, Usuario responsavel,
+    private Projeto novoProjeto(Long id, String titulo, String descricao, String area, Usuario responsavel,
             StatusProjeto status, LocalDate dataInicio, LocalDate dataPrevistaConclusao, BigDecimal investimento,
             BigDecimal economiaAnualEstimada, BigDecimal economiaAnualRealizada, Integer horasEconomizadasMes) {
         Projeto projeto = new Projeto();
+        projeto.setId(id);
         projeto.setTitulo(titulo);
         projeto.setDescricao(descricao);
         projeto.setArea(area);
@@ -189,8 +191,9 @@ public class DataSeeder implements CommandLineRunner {
         return projeto;
     }
 
-    private Tarefa novaTarefa(String titulo, StatusTarefa status, LocalDate dataConclusao, Projeto projeto) {
+    private Tarefa novaTarefa(Long id, String titulo, StatusTarefa status, LocalDate dataConclusao, Projeto projeto) {
         Tarefa tarefa = new Tarefa();
+        tarefa.setId(id);
         tarefa.setTitulo(titulo);
         tarefa.setStatus(status);
         tarefa.setDataConclusao(dataConclusao);

@@ -30,7 +30,7 @@ public class IdeiaController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('OPERADOR')")
-    public ResponseEntity<IdeiaResponseDTO> buscarPorId(@PathVariable String id,
+    public ResponseEntity<IdeiaResponseDTO> buscarPorId(@PathVariable Long id,
             @AuthenticationPrincipal UsuarioAutenticado principal) {
         return ResponseEntity.ok(ideiaService.buscarPorId(id, principal));
     }
@@ -44,7 +44,7 @@ public class IdeiaController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('GESTOR')")
-    public ResponseEntity<IdeiaResponseDTO> atualizar(@PathVariable String id,
+    public ResponseEntity<IdeiaResponseDTO> atualizar(@PathVariable Long id,
             @Valid @RequestBody AtualizarIdeiaRequestDTO dto) {
         return ResponseEntity.ok(ideiaService.atualizar(id, dto));
     }

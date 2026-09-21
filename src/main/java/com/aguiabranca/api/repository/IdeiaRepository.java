@@ -1,11 +1,10 @@
 package com.aguiabranca.api.repository;
 
 import com.aguiabranca.api.model.Ideia;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface IdeiaRepository extends JpaRepository<Ideia, String> {
-
+public interface IdeiaRepository extends MongoRepository<Ideia, Long> {
     List<Ideia> findByAutorId(Long autorId);
 }
