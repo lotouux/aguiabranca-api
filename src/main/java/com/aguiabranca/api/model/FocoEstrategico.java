@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "focos_estrategicos")
@@ -25,7 +26,7 @@ public class FocoEstrategico {
 
     private String descricao;
 
-    private List<String> areasPotenciais;
+    private List<String> areasPotenciais = new ArrayList<>();
 
     private boolean ativo;
 }

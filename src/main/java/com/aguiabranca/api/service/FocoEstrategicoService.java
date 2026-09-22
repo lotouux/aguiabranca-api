@@ -40,6 +40,7 @@ public class FocoEstrategicoService {
         foco.setTitulo(dto.titulo());
         foco.setDescricao(dto.descricao());
         foco.setAreasPotenciais(dto.areasPotenciais());
+        foco.setAtivo(dto.ativo());
         return toDTO(focoRepository.save(foco));
     }
 
