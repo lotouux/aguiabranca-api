@@ -68,20 +68,19 @@ public class IdeiaController {
     // --- Marcos ---
 
     @GetMapping("/{id}/marcos")
-    @PreAuthorize("hasRole('OPERADOR')")
     public ResponseEntity<List<MarcoDTO>> listarMarcos(@PathVariable String id) {
         return ResponseEntity.ok(marcoService.listar(id));
     }
 
     @PostMapping("/{id}/marcos")
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasAnyRole('GESTOR', 'LIDERANCA')")
     public ResponseEntity<MarcoDTO> criarMarco(@PathVariable String id,
             @Valid @RequestBody CriarMarcoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(marcoService.criar(id, dto));
     }
 
     @PatchMapping("/{id}/marcos/{marcoId}")
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasAnyRole('GESTOR', 'LIDERANCA')")
     public ResponseEntity<MarcoDTO> atualizarMarco(@PathVariable String id,
             @PathVariable String marcoId,
             @RequestBody AtualizarMarcoDTO dto) {
