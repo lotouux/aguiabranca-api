@@ -1,5 +1,9 @@
 # Águia Branca API
 
+> [!NOTE]
+> **Notice for Evaluators:** Running this API locally is optional. The frontend application is already configured to consume a live instance of this API,
+> so you can skip the local setup and proceed directly to running the client app.
+
 Spring Boot 3.5 / Java 21 API for an innovation-idea pipeline: Operators submit ideas, Managers
 triage them and run projects, Leaders steer strategy and read the resulting metrics.
 
