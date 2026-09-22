@@ -11,5 +11,9 @@ public record AtualizarIdeiaRequestDTO(
         Nivel impacto,
         Nivel esforco,
         Boolean isStrategicBonus,
-        String feedbackGestor
+        String feedbackGestor,
+        String prazo,
+        Float investimento,
+        Float retorno,
+        Float roiEsperado
 ) {}
