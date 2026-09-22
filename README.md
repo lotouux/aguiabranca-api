@@ -3,9 +3,13 @@
 > [!NOTE]
 > **Notice for Evaluators:** Running this API locally is optional. The frontend application is already configured to consume a live instance of this API,
 > so you can skip the local setup and proceed directly to running the client app.
-> AVISO: Na primeira vez que utilizar o aplicativo, a API pode demorar para carregar, as vezes pela demora acaba dando erro e é necessário tentar mais de uma vez. Na primeira execução do aplicativo, o carregamento inicial da API pode demorar alguns instantes para ser concluído. Em caso de falha de conexão temporária devido ao tempo limite de resposta, por favor, realize uma nova tentativa para que o serviço seja restabelecido normalmente. 
-> APLICATIVO: A API foi hospedada no site render.com 
-> RENDER: https://aguiabranca-api.onrender.com 
+> 
+> AVISO: Na primeira vez que utilizar o aplicativo, a API pode demorar para carregar, as vezes pela demora acaba dando erro e é necessário tentar mais de uma vez. Na primeira execução do aplicativo, o carregamento inicial da API pode demorar alguns instantes para ser concluído. Em caso de falha de conexão temporária devido ao tempo limite de resposta, por favor, realize uma nova tentativa para que o serviço seja restabelecido normalmente.
+> 
+> APLICATIVO: A API foi hospedada no site render.com
+> 
+> RENDER: https://aguiabranca-api.onrender.com
+> 
 > Repositório da API: https://github.com/lotouux/aguiabranca-api.git 
 
 
