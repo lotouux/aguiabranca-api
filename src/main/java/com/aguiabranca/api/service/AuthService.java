@@ -13,10 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+    @Value("${ai.api-key}")
+    private String aiKey;
 
     private static final String MENSAGEM_CREDENCIAIS_INVALIDAS = "Matrícula ou senha inválidos.";
 
@@ -43,7 +46,8 @@ public class AuthService {
         }
 
         String token = jwtService.gerarToken(usuario);
-        return new LoginResponseDTO(token, usuario.getNome(), mapearPerfil(usuario.getPerfil()));
+
+        return new LoginResponseDTO(token, usuario.getNome(), mapearPerfil(usuario.getPerfil()), aiKey);
     }
 
     @Transactional(readOnly = true)
